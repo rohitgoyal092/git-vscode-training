@@ -1,0 +1,30 @@
+- There are 6 kinds of header tags : <h1>, <h2> ….<h6>, h1 being the strongest and h6 being the weakest.
+- <p> is used to write a paragraph.
+- <b> & <strong> are used to bold the text.
+- <em> & <I> are used to italicise the text.
+- <code> is used to represent a code section.
+- <ul> starts an unordered list, <ol> starts an ordered list, <li> stands for list item
+- <dl>, <dt>, <dd> can be used for a description list.
+- <nav> can be used to create a horizontal navigation menu.
+- <br/> is used to indicate line termination.
+- <sub> & <sup> can be used to insert subscript and superscript.
+- <pre> is used to start a section where alignment and spacing in the html file matters.
+- <span> and <div> are line and block tags respectively, used to start a different context line or block.
+- We can use UTF-8 charset as charset property, it consists of nearly all the characters there are. A browser needs to know the charset before hand to properly display the webpage.
+
+Links : 
+- <a href = “Link”> Link Text </a> is used to define a link.
+
+Images : 
+- <img src = “Link” width = “” height = “” srcset=“”> is used to define images. srcset” is used to define alternate images. ‘w’ is used to provide width descriptor or ‘X’ is used to provide the pixel density descriptor.
+- If we want to show different images in context of different screen width ( or have different sourceset for different screen widths ), we can use <picture> tag, followed by the <source media = “” srcset = “”> tag.
+
+Audio :
+- We can use <audio> to use an audio clip. It comes with attributes like controls, autoplay, and loop. Controls provides media control options on the audio, loop is used to loop the video.
+- <source src = “Link” type = “eg. audio.mpeg”> can be used to provide the options for downloading different audio clips based on bandwidth, format etc.
+
+Video : 
+- We use <video> to use a video clip. Similar to audio, we can use attributes like controls, autoplay etc. <source…..> is also similar. 
+- Apart from this, we can use <track/> can be used to insert subtitles. eg. <video> <source …./> <track src = “Link” kind = “captions” label = “English” srclang = “en” default/> </video>. Default is used to specify for a default/auto subtitles. We can cascade more <track…/> to define a set of subtitles for user preference.
+- We can use embedded code from sites like YouTube to embed videos into our page. 
+
