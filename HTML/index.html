@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      This is American. Now we switch to Mexican.<br />
+      <!-- Terminating Punctuation Marks come at the end in rtl-->
+      <span lang="es-mx" dir="rtl"
+        >Now we are mexican. We are mexican!<br
+      /></span>
+      Now back to American.
+    </p>
+
+    <!-- Video from youtube (via share -> embed option)-->
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/Xoz-YIssgg4"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <br />
+    <!-- Custom Video Clip-->
+    <video controls>
+      <source
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/moonwalk.480p.vp9.webm"
+        type="video/webm"
+      />
+      <source
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/moonwalk.480p.h264.mp4"
+        type="video/mp4"
+      />
+      <!-- For Subtitles -->
+      <track
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/moonwalk.vtt"
+        kind="captions"
+        label="English"
+        srclang="en"
+        default
+      />
+      <track
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/moonwalk.es-la.es.vtt"
+        kind="captions"
+        label="Espanol"
+        srclang="es"
+        default
+      />
+      <p>Couldn't load the larger video</p>
+    </video>
+    <br />
+    <!-- Custom Audio Clip -->
+    <audio controls loop>
+      <source
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/birds.ogg"
+        type="audio/ogg; codec = opus"
+      />
+      <source
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/birds.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+    <br />
+    <figure>
+      <picture>
+        <!-- To allow different images for different use cases eg. cropped for smaller resolutions -->
+        <source
+          media="(min-width:600px)"
+          srcset="
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-480.jpg   480w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-960.jpg   960w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-1440.jpg 1440w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-1920.jpg 1920w
+          "
+        />
+        <!-- Else case -->
+        <source
+          srcset="
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-cropped-480.jpg   480w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-cropped-960.jpg   960w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-cropped-1440.jpg 1440w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog2-cropped-1920.jpg 1920w
+          "
+        />
+        <!-- w for width, x for pixel density(eg. 1x, 2x, 3x ...) -->
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog-480.jpg"
+          width="480"
+          height="360"
+          srcset="
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog-480.jpg   480w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog-960.jpg   960w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog-1440.jpg 1440w,
+            https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/dog-1920.jpg 1920w
+          "
+          sizes="(max-width: 480px) 240px,
+             (max-width: 960px) 480px,
+              (max-width: 1440px) 960px,"
+        />
+        <figcaption>The dog is sitting but is it</figcaption>
+        <!-- To provide captioning to the image -->
+      </picture>
+    </figure>
+
+    <!--
+    Usage of hyperlinks
+    -->
+    <nav>
+      <!-- Navigation bar -->
+      <a href="https://www.google.com/">Home</a> | <a href="/">School</a> |
+      <a href="/">Bus</a> | <a href="/">Ground</a> |
+    </nav>
+    <a href="https://www.google.com/">This is a link</a>
+
+    <!--
+    Usage of special symbols
+    -->
+
+    <h3>&lt;&copy;---------&trade;TRADEMARK &star;---------&copy;&gt;</h3>
+
+    H<sub>2</sub>O + n<sup>2</sup> = undefined
+
+    <!--
+    Usage of code and pre
+    -->
+    <p>
+      <code>
+        #include&lt;bits/stdc++.h&gt;<br />using namespace std;
+        <pre>
+  int main()
+  {
+    int a,b;
+    cin>>a>>b;
+    for(int i=0;i&lt;a+b;i++){
+        cout&lt;&lt;"do nothing";
+    }
+  }
+        </pre>
+      </code>
+    </p>
+
+    <small>This code is meaningless <br /></small>
+
+    <time datetime="2021-06-23"> Today </time>
+
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+
+    <ol>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ol>
+
+    <dl>
+      <h3><dt>term</dt></h3>
+      <dd>definition</dd>
+    </dl>
+
+    <h1>This is H1 Tag</h1>
+    <h2>This is H2 Tag</h2>
+    <h3>This is H3 Tag</h3>
+    <h4>This is H4 Tag</h4>
+    <h5>This is H5 Tag</h5>
+    <h6>This is H6 Tag</h6>
+
+    <h4>
+      <em> This is the usage of em. </em>
+      <i> This is the usage of i. </i>
+      <strong> This is the usage of strong. </strong>
+      <b> This is the usage of b. </b>
+    </h4>
+  </body>
+</html>
