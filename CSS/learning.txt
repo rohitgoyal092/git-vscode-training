@@ -1,0 +1,8 @@
+- CSS can be loaded externally, internally or inline in the element tag itself.
+- Specificity rules : 
+  - General preference on the innermost tag.
+  - In case of multiple classes, ids on the same tag, preference is based on (id cnt -> class cnt).
+  - In case of same specs defined above, it follows order of definition inside the css.
+  - Inline style beats even id->cnt's.
+  - "!important" property in the definition of a class beats inline too.
+  - Innermost tag > (!important for a property) > (inline) > (id cnt) > (class cnt)
