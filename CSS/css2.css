@@ -1,0 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
+.sib-sep-class * + * {
+  margin-top: 10em;
+}

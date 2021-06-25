@@ -6,47 +6,52 @@ body {
   color: rgb(100, 100, 100);
 }
 
-.first_class {
+.first-class {
   color: orangered;
 }
 
-.second_class {
+.second-class {
   color: blue;
+  background-color: orange;
+  border: 20px;
+  height: 200px;
 }
 /* .block-class.clock-class beats other 2 classes .block-class and .clock-class because it's more specific */
 .block-class.clock-class {
   color: yellow;
   background-color: pink;
-  border: 1px solid black;
-  margin-bottom: 5px;
-  padding: 5px;
+  border: 5px solid black;
+  /* margin-bottom: 5px; */
 }
 
 .block-class {
   color: yellow;
   border: 1px solid black;
-  margin-bottom: 5px;
-  padding: 5px;
+  /* margin-bottom: 5px; */
 }
 
 .clock-class {
   /* It overlaps on .block-class because it's the same level of specificity as the block-class but downwards in the css file*/
   color: yellow;
-  border: 1px solid red;
-  margin-bottom: 5px;
-  padding: 5px;
+  border: 5px solid red;
+  /* margin-bottom: 5px; */
 }
 
 /* It is general specs for div attribute if nothing overlapping is specified */
-div {
-  height: 100px;
+/* div {
+  width: 48%;
+  margin: 1%;
+  float: right;
   color: orange;
   background-color: wheat;
-  width: 200px;
-  padding: 15px;
+  padding: 100px;
   border: 2px solid black;
   overflow: scroll;
-  margin: 20px;
+} */
+
+div.parent-class {
+  border: 2px solid black;
+  width: 100%;
 }
 
 .block-class.clock-class p {
@@ -54,12 +59,30 @@ div {
   background-color: red;
 }
 
-.clock-class.trick-class p {
+.clock-class p {
   color: green;
   background-color: white;
 }
 
-/* .block-class.clock-class.trick-class p {
-  color: green;
-  background-color: white;
-} */
+.block-class.clock-class.trick-class p {
+  color: black;
+  background-color: orange;
+}
+
+#testId {
+  color: blue;
+  background-color: red;
+  height: 200px;
+  width: 200px;
+  border: 2px solid white;
+}
+
+.bclass {
+  background-color: green;
+  color: orange;
+  width: 100%;
+}
+
+.hclass {
+  background-color: brown;
+}
