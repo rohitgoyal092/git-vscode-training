@@ -1,0 +1,15 @@
+html {
+  color: orange;
+}
+
+body {
+  font-size: 1.2em;
+}
+
+p {
+  font-style: italic;
+}
+
+article > * + * {
+  margin-top: 1em;
+}

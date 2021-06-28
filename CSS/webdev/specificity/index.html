@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="index.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <p>Color from div defined below and Background Color from div from css</p>
+    </div>
+    <div
+      style="
+        color: magenta;
+        background-color: blue;
+        outline-style: dashed;
+        width: calc(100% - 20%);
+      "
+    >
+      <style>
+        div {
+          background-color: orange;
+        }
+      </style>
+      <!-- Inline beats defined-->
+      <p>inner triumphs Outer</p>
+      <!-- Again inner inline beats the outside inline -->
+      <p style="color: red">Inner inline triumphs Inner</p>
+      <p class="test_resets">Testing Reset</p>
+    </div>
+  </body>
+</html>
