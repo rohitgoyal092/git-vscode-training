@@ -1,15 +1,20 @@
-html {
-  color: orange;
+.green {
+  line-height: 1.1;
+  border: solid limegreen;
 }
 
-body {
-  font-size: 1.2em;
+.red {
+  line-height: 0.9em;
+  border: solid red;
 }
 
-p {
-  font-style: italic;
+h1 {
+  font-size: 30px;
 }
 
-article > * + * {
-  margin-top: 1em;
+.box {
+  width: 18em;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 15px;
 }

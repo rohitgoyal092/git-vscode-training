@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 20px;
+}
+
+.bclass {
+  display: block;
+  border: 5px solid green;
+}
+
+.iclass {
+  display: inline;
+  border: 5px solid black;
+}
+
+.fclass {
+  display: flex;
+  border: 5px solid red;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 50%;
+  height: 200px;
+}
+
+.obclass1 {
+  border: 2px solid orange;
+  margin: 3%;
+  flex-grow: 2;
+}
+.obclass2 {
+  border: 2px solid orange;
+  margin: 3%;
+  flex-grow: 3;
+}
+.obclass3 {
+  border: 2px solid orange;
+  margin: 3%;
+  flex-grow: 1;
+}
