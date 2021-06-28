@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
-.sib-sep-class * + * {
-  margin-top: 10em;
+/* Selector - used to select a set of elements
+Combinator - used to fine grain selection, works between 2 selectors */
+
+/* "*+*" has the same effect, targets 2nd and after children, however if used without *, they differ*/
+/* > prevents spacing between 1.1 and 2.2, only one level of children are affected */
+/* .sib-sep-class > * + * {
+  margin-top: 5em;
+} */
+
+/* Descendent Descriptor, checks if 2nd part has some ancestor that is first part */
+.sib-sep-class div {
+  padding-left: 20px;
+}
+.sib-sep-class p {
+  padding-left: 20px;
 }
