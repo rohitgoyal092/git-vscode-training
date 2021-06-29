@@ -17,26 +17,37 @@ body {
 
 .fclass {
   display: flex;
+  /* flex-direction: column; */
   border: 5px solid red;
   flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: space-between;
+  justify-content: center;
+  /* align-content: stretch; */
+  /* writing-mode: vertical-rl; */
+  /* justify-content: space-between; */
   width: 50%;
   height: 200px;
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .obclass1 {
   border: 2px solid orange;
-  margin: 3%;
-  flex-grow: 2;
+  /* margin: 3%; */
+  /* min-width: 100%; */
+  /* flex-grow: 2;
+  order: 2; */
 }
 .obclass2 {
   border: 2px solid orange;
-  margin: 3%;
-  flex-grow: 3;
+  /* margin: 3%; */
+  /* min-width: 100%; */
+  /* flex-grow: 3;
+  order: 1; */
 }
 .obclass3 {
   border: 2px solid orange;
-  margin: 3%;
-  flex-grow: 1;
+  /* margin: 3%; */
+  /* min-width: 100%; */
+  /* flex-grow: 1;
+  order: 3; */
 }
