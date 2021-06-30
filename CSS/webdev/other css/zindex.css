@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Need to make position non static for z index assignment to work, if we are not in flexbox or grid */
+/* Child stacking context is among elements under same ancesteral stacking context only */
+/* Under an order of stacking context, lexicographical order of stacking context is followed to determine which goes over what */
+.demo > * {
+  width: 250px;
+  height: 200px;
+  position: relative;
+}
+
+.demo > * + * {
+  margin-top: -150px;
+  opacity: 0.8;
+  box-shadow: 0 -1px 10px rgba(0 0 0 / 60%);
+}
+
+.demo > :first-child {
+  background: aliceblue;
+  border: 2px solid lightblue;
+  z-index: 3;
+}
+
+.demo > :nth-child(2) {
+  background: pink;
+  border: 2px solid hotpink;
+  z-index: 2;
+}
+
+.demo > :last-child {
+  background: wheat;
+  border: 2px solid gold;
+  z-index: 1;
+}

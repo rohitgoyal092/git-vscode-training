@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 30px;
+  border: 5px solid black;
+  padding: 1rem;
+}
+
+p::before {
+  content: "This will always come before P - ";
+  color: orange;
+}
+
+p::after {
+  content: " - This will always come after P.";
+  color: blue;
+}
+
+p {
+  border-block-end: 2px solid hotpink;
+}
+
+p::first-letter {
+  font-size: 50px;
+  color: red;
+  border: 5px solid green;
+}
+
+.lineClass::first-line {
+  color: violet;
+}
+
+ul.markerClass {
+  column-count: 5;
+  column-gap: 2rem;
+  overflow: auto;
+}
+ul.markerClass li::selection {
+  background: green;
+  color: white;
+}
+
+ul.markerClass li::marker {
+  font-style: italic;
+  color: blue;
+}

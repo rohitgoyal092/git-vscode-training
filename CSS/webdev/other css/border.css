@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+figure {
+  max-width: 50rem;
+  margin: 2em auto;
+  padding: 1em;
+  border: 1px solid #718093;
+  border-radius: 0.5em;
+  box-shadow: inset 5px 5px 20px 5px red, inset 0px 0px 10px 2px darkslategray,
+    inset 0px 0px 20px 10px steelblue;
+  /* Multiple shadows seperated by commas, outline over box, used inset to outline inside box */
+  text-shadow: 3px 3px 3px blueviolet;
+  /* Text shadow does not obey boundaries */
+  /* Box shadow obeys boundaries */
+}
+
+figcaption {
+  font-style: italic;
+  text-align: center;
+}
+
+/* Specify drop-shadow to give shadow to the image */
+figure img {
+  filter: drop-shadow(10px 10px 0px red);
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+}

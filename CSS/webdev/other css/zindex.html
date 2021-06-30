@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="zindex.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <article class="flow">
+        <h1>Default <code>z-index</code> behaviour</h1>
+        <figure class="callout">
+          <p>
+            If no value for <code>z-index</code> is set, the browser will use
+            the document source order to dictate <code>z-index</code> instead.
+          </p>
+          <p>
+            This demo has 3 empty <code>&lt;div&gt;</code> elements, with
+            negative margin, making them overlap. The later elements sit on top
+            of the earlier elements.
+          </p>
+        </figure>
+        <div class="demo">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

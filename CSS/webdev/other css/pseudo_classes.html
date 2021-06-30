@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="pseudo_classes.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="#jumpArticle" class="buttonClass">
+      Click this link to jump to the below article. It will also get highlighted
+      if jumped on. If visited once, it will appear as purple.
+    </a>
+    <hr />
+    <p>
+      This is an example of invalid state input. It turns red on entering
+      invalid id and green for valid id.
+    </p>
+    <form class="centerit">
+      <label>
+        Name
+        <input type="email" />
+      </label>
+      <input
+        type="submit"
+        value="Submit"
+        class="buttonClass"
+        style="margin: 1%; align-self: top"
+      />
+    </form>
+    <hr />
+    <p>
+      Hold this button. This is an example of active state. Also once clicked,
+      it becomes focused and turns green :). Also keyboard navigation using tabs
+      and clicks create different types of button states on buttons such as
+      outlines and focus color
+    </p>
+    <button class="buttonClass">SPAM CLICK!</button>
+    <hr />
+    <article>
+      <h1 style="text-align: center">Start of the article</h1>
+      <p>
+        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed
+        odio dui. Donec id elit non mi porta gravida at eget metus. Lorem ipsum
+        dolor sit amet, consectetur adipiscing elit.
+      </p>
+    </article>
+    <article id="jumpArticle">
+      <h1 style="text-align: center">End of the article</h1>
+      <p>
+        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed
+        odio dui. Donec id elit non mi porta gravida at eget metus. Lorem ipsum
+        dolor sit amet, consectetur adipiscing elit.
+      </p>
+    </article>
+    <hr />
+    <h1>This is an example of disabled button</h1>
+    <div class="regularize">
+      <button class="buttonClass" disabled>DARE TO PRESS!</button>
+    </div>
+  </body>
+</html>

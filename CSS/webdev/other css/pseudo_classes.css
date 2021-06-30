@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
+.centerit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Used here to push a button to the center */
+.regularize {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  font-size: 25px;
+  padding: 10px;
+}
+h1 {
+  text-align: center;
+}
+
+/* If input entered is invalid */
+input:invalid {
+  border-color: red;
+}
+
+/* If input entered is valid */
+input:valid {
+  border-color: green;
+}
+/* Just general button class */
+.buttonClass {
+  color: blue;
+  background-color: orange;
+  font-size: 2em;
+}
+/* To define click and hold state */
+.buttonClass:active {
+  transform: scale(0.99);
+  box-shadow: blue;
+}
+/* For Mouse click focus, outline outlines border*/
+.buttonClass:focus {
+  outline: 2px solid black;
+  border: 2px solid white;
+  outline-offset: 2px;
+  background-color: green;
+}
+
+/* For Keyboard focus */
+.buttonClass:focus-visible {
+  outline: 1px dashed black;
+  outline-offset: 2px;
+  background-color: goldenrod;
+}
+/* To show a link has not been clicked */
+.buttonClass:link {
+  color: white;
+}
+/* To show a link has been clicked */
+.buttonClass:visited {
+  color: purple;
+}
+/* This is an example of disabled button */
+.buttonClass:disabled {
+  background: grey;
+  border-color: grey;
+  cursor: not-allowed;
+}
+
+/* To defined id's state which can be jumped on */
+#jumpArticle:target {
+  background: yellow;
+}
+
+/* Whenever the form elements are selected, it changes color for that background */
+form:focus-within {
+  background: #ff8;
+  color: black;
+}
