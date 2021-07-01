@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+/* filters applied to the second image */
+.my-element {
+  filter: blur(0.4em) brightness(80%) contrast(200%)
+    drop-shadow(10px 10px black) saturate(155%);
+}
+
+.demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 2em auto;
+}
+
+.demo p {
+  margin-top: -2rem;
+  /* Applies on the background block in which the text is present */
+  backdrop-filter: blur(10px);
+}
+
+.demo img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}

@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body > * {
+  float: left;
+  margin: 2em;
+}
+
+.linearGradient {
+  background: linear-gradient(45deg, red 50%, blue 100%);
+  clip-path: circle(30%);
+  border: 5px solid black;
+  width: 30%;
+  min-height: 100vh;
+}
+
+.cirGradient {
+  clip-path: circle(30%);
+  background: radial-gradient(
+    /* farthest-corner at 1110px 1110px, */ yellow,
+    orange,
+    brown,
+    blue,
+    lightblue,
+    black,
+    black,
+    yellow
+  );
+  border: 5px solid blue;
+  width: 80%;
+  min-height: 100vh;
+}
+
+.coneGradient {
+  clip-path: circle(30%);
+  background: conic-gradient(white, black);
+  border: 5px solid blue;
+  width: 80%;
+  min-height: 100vh;
+}
+
+.repClass {
+  background: repeating-linear-gradient(45deg, blue, red 33.3%);
+  width: 80%;
+  min-height: 100vh;
+}

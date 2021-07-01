@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.parent {
+  overflow: visible;
+  background-color: orange;
+  height: 50%;
+  width: 50%;
+}
+.child {
+  display: inline-block;
+  background-color: green;
+  height: 50%;
+  width: 50%;
+  border: 2px solid black;
+  /* Change it to 'reverse' to reverse keyframes */
+  animation: left-to-right 2s ease-in reverse forwards infinite;
+  /* Initially paused animation */
+  animation-play-state: paused;
+  /* Defines steps per frame change*/
+  animation-timing-function: steps(20, end);
+}
+
+/* .child:empty {
+  background-color: green;
+  height: 30%;
+  width: 50%;
+} */
+
+/* Runs on hovering */
+.parent:hover .child {
+  animation-play-state: running;
+}
+
+/* Transformation at different time instances of 1 defined cycle(1sec as defined above) relative to origin */
+@keyframes left-to-right {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateY(100%) scale(1.2);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateX(100%) translateY(100%) scale(1.4);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateX(100%) scale(1.2);
+    opacity: 0.8;
+    background: red;
+  }
+  100% {
+    transform: translateX(0) scale(1.1);
+  }
+}

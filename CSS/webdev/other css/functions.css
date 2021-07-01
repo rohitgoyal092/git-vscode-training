@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  --base-color: orange;
+}
+
+.circle {
+  clip-path: circle(40%);
+  transform: skew(80deg);
+}
+
+.polygon {
+  /* transform: rotate3d(1, 1, 1, 100deg); */
+  transform: skew(20deg, -20deg);
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 75%,
+    75% 75%,
+    75% 100%,
+    50% 75%,
+    0% 75%
+  );
+}
+
+.demo {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  gap: 1.5rem;
+  max-width: 500px;
+}
