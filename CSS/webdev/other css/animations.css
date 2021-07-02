@@ -25,7 +25,7 @@ body {
   /* Initially paused animation */
   animation-play-state: paused;
   /* Defines steps per frame change*/
-  animation-timing-function: steps(20, end);
+  animation-timing-function: steps(200, end);
 }
 
 /* .child:empty {

@@ -6,17 +6,25 @@ body > * {
   float: left;
   margin: 2em;
 }
+@media print {
+  body {
+    background-color: blue;
+  }
+}
 
 .linearGradient {
   background: linear-gradient(45deg, red 50%, blue 100%);
-  clip-path: circle(30%);
+
   border: 5px solid black;
   width: 30%;
   min-height: 100vh;
 }
 
+.uselessClass {
+  font-size: 1em;
+}
+
 .cirGradient {
-  clip-path: circle(30%);
   background: radial-gradient(
     /* farthest-corner at 1110px 1110px, */ yellow,
     orange,
@@ -33,7 +41,6 @@ body > * {
 }
 
 .coneGradient {
-  clip-path: circle(30%);
   background: conic-gradient(white, black);
   border: 5px solid blue;
   width: 80%;
