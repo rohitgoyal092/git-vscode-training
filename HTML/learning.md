@@ -14,34 +14,38 @@
 - Every HTML file transported over web has :
   - doctype: It is used to show which type of file it is : modern or old.
   - head: It contains all metadata like charset, description, compatibility, title of the page etc (for browser, not user).
-          It can also be used to provide theme color, load other assets using <link href = "" rel(type of asset) = "">
-          We also place script tag to tell which js files to load
+    It can also be used to provide theme color, load other assets using <link href = "" rel(type of asset) = "">
+    We also place script tag to tell which js files to load
   - body: It contains the main content shown on the page.
-          It has :
-                    main to tell the browser where the main content is
-                    header and footer that lie at the top and bottom of the site
-                    article used to define a unit block
-                    section to divide big chunk of content to smaller pieces
-                    aside to show side bar content
+    It has :
+    main to tell the browser where the main content is
+    header and footer that lie at the top and bottom of the site
+    article used to define a unit block
+    section to divide big chunk of content to smaller pieces
+    aside to show side bar content
 
-  
-Links : 
+Links :
+
 - <a href = “Link”> Link Text </a> is used to define a link.
 
-Images : 
+Images :
+
 - <img src = “Link” width = “” height = “” srcset=“”> is used to define images. srcset” is used to define alternate images. ‘w’ is used to provide width descriptor or ‘X’ is used to provide the pixel density descriptor.
 - If we want to show different images in context of different screen width ( or have different sourceset for different screen widths ), we can use <picture> tag, followed by the <source media = “” srcset = “”> tag.
 
 Audio :
+
 - We can use <audio> to use an audio clip. It comes with attributes like controls, autoplay, and loop. Controls provides media control options on the audio, loop is used to loop the video.
 - <source src = “Link” type = “eg. audio.mpeg”> can be used to provide the options for downloading different audio clips based on bandwidth, format etc.
 
-Video : 
-- We use <video> to use a video clip. Similar to audio, we can use attributes like controls, autoplay etc. <source…..> is also similar. 
-- Apart from this, we can use <track/> can be used to insert subtitles. eg. <video> <source …./> <track src = “Link” kind = “captions” label = “English” srclang = “en” default/> </video>. Default is used to specify for a default/auto subtitles. We can cascade more <track…/> to define a set of subtitles for user preference.
-- We can use embedded code from sites like YouTube to embed videos into our page. 
+Video :
 
-Forms : 
+- We use <video> to use a video clip. Similar to audio, we can use attributes like controls, autoplay etc. <source…..> is also similar.
+- Apart from this, we can use <track/> can be used to insert subtitles. eg. <video> <source …./> <track src = “Link” kind = “captions” label = “English” srclang = “en” default/> </video>. Default is used to specify for a default/auto subtitles. We can cascade more <track…/> to define a set of subtitles for user preference.
+- We can use embedded code from sites like YouTube to embed videos into our page.
+
+Forms :
+
 - We can use forms to create labelled entry fields
 - We can link label with input either using "for" - "id" in <label> and in <input> tag respectively.
   Or by defining input inside the label.
@@ -53,7 +57,8 @@ Forms :
 - We can add files, checkboxes, color and date selection options too.
 
 Tables:
-- We can use tables via <tables></tables> tag. 
+
+- We can use tables via <tables></tables> tag.
 - Row addition by <tr></tr>, inside it either define headers using <th></th> or table data <td></td>.
 - We can also any other type of content inside the table cells.
-- 
+-

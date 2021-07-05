@@ -2,18 +2,18 @@
 - In case of 2 links, bottom one wins.
 - Inner tag's generally override the outer tags
 - Class names > tag names.
-- points : 
-  - global(0), 
-  - tags/element(1), 
-  - class(10), 
-  - ID selector(100), 
-  - inline style(1000), 
+- points :
+  - global(0),
+  - tags/element(1),
+  - class(10),
+  - ID selector(100),
+  - inline style(1000),
   - !important(10000)
 - argument inside not is counted for calculation
 - If you want to give this rule a boost, repeat the class selector name.
 
 - CSS can be loaded externally, internally or inline in the element tag itself.
-- Specificity rules : 
+- Specificity rules :
   - General preference on the innermost tag.
   - In case of multiple classes, ids on the same tag, preference is based on (id cnt -> class cnt).
   - In case of same specs defined above, it follows order of definition inside the css.
