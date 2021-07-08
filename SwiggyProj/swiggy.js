@@ -51,3 +51,43 @@ leftButton.addEventListener("click", function (event) {
   if (!leftScrollable(scrollBox, getJumpLength(imgList))) return;
   scrollBox.scrollLeft -= getJumpLength(imgList);
 });
+
+rightButton.addEventListener("mouseover", function (event) {
+  rightArrow = document.querySelector(".rightButton .arrowClass");
+  rightArrow.animate(
+    [
+      { transform: "translateX(0px)" },
+      { transform: "translateX(2px)" },
+      { transform: "translateX(4px)" },
+      { transform: "translateX(8px)" },
+    ],
+    { duration: 250, fill: "forwards" }
+  );
+});
+rightButton.addEventListener("mouseleave", function (event) {
+  rightArrow = document.querySelector(".rightButton .arrowClass");
+  rightArrow.animate([{ transform: "translateX(0px)" }], {
+    duration: 1,
+    fill: "forwards",
+  });
+});
+
+leftButton.addEventListener("mouseover", function (event) {
+  leftArrow = document.querySelector(".leftButton .arrowClass");
+  leftArrow.animate(
+    [
+      { transform: "translateX(0px)" },
+      { transform: "translateX(-2px)" },
+      { transform: "translateX(-4px)" },
+      { transform: "translateX(-8px)" },
+    ],
+    { duration: 250, fill: "forwards" }
+  );
+});
+leftButton.addEventListener("mouseleave", function (event) {
+  leftArrow = document.querySelector(".leftButton .arrowClass");
+  leftArrow.animate([{ transform: "translateX(0px)" }], {
+    duration: 1,
+    fill: "forwards",
+  });
+});
