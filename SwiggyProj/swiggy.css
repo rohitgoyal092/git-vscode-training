@@ -3,6 +3,7 @@
 }
 :root {
   --backColor: #282c3f;
+  --borderColor: rgb(255, 194, 102);
 }
 
 html {
@@ -22,107 +23,119 @@ body {
 }
 
 .slides {
+  z-index: 1;
   display: flex;
-  /* justify-content: center; */
   background: var(--backColor);
   width: max(1240px, 100%);
-  height: max(200px, 20%);
+  height: max(200px, 30%);
 }
 .imageButton {
   display: flex;
   width: min(1240px, 100%);
-  /* align-items: center; */
-  /* height: 100%; */
   margin-left: auto;
   margin-right: auto;
   flex-wrap: nowrap;
 }
 
 .containImg {
-  /* margin: 1%; */
   display: flex;
   background: var(--backColor);
   align-items: center;
-  /* justify-content: safe center; */
-  /* justify-items: center; */
   overflow: hidden;
   flex-wrap: nowrap;
 }
 
 .slide {
-  /* display: inline-block; */
+  cursor: pointer;
+  border: 2px solid rgb(70, 77, 109);
   display: inline-block;
-  margin-left: 1%;
-  margin-right: 1%;
+  margin-right: 2%;
   height: 80%;
-  min-width: 25%;
-  max-width: 25%;
 }
-/* .slide:first-child {
-  margin-left: auto;
-} */
+
+.slide:hover {
+  transform: scale(1.05);
+}
 
 .rightButton,
 .leftButton {
+  z-index: 1;
+  cursor: pointer;
   display: inline-block;
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 40%;
-  width: 13%;
-  border: 2px solid orange;
+  margin: auto;
+  height: 60px;
+  width: 150px;
+  border: 2px var(--borderColor);
   border-radius: 50%;
+  border: 3px solid var(--borderColor);
+}
+.slide:last-child {
+  margin-right: 0px;
 }
 
 .arrowClass {
+  mix-blend-mode: multiply;
   object-fit: contain;
-  height: 50%;
-  width: 50%;
+  height: 60%;
+  width: 60%;
 }
-
-/* .leftButton .arrowClass {
-  float: right;
-}
-
-.rightButton .arrowClass {
-  float: left;
-} */
 
 .rightButton {
-  margin-left: 1%;
+  margin-left: -2.5%;
 }
 
 .leftButton {
-  margin-right: 1%;
+  margin-right: -2.5%;
 }
 
 .slides.header {
+  z-index: 2;
   background: white;
-  max-height: max(10px, 7%);
+  max-height: max(20px, 8%);
   min-height: 4.5vmax;
-  /* position: -webkit-sticky; */
   position: sticky;
   top: 0px;
-  /* align-self: flex-start; */
 }
 
 .logo {
+  mix-blend-mode: multiply;
   flex: 0 1;
+  cursor: pointer;
   object-fit: contain;
   margin-top: 0.2%;
   margin-bottom: 0.2%;
 }
+logo:hover {
+}
 
 .textClass {
-  margin-top: auto;
-  margin-bottom: auto;
-  display: inline-block;
-  margin-right: 3%;
+  cursor: pointer;
+  width: 9%;
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 1%;
+  padding-right: 1%;
+  border: 2px solid white;
+  border-radius: 5%;
 }
 
 .textClass1 {
-  margin-left: 3%;
 }
 
 .textClass2 {
   margin-left: auto;
+}
+.textClass1:hover,
+.textClass2:hover {
+  border-color: rgb(255, 194, 102);
+}
+.centerText {
+  display: inline-block;
+  text-align: center;
+}
+
+article p {
+  text-align: center;
 }
