@@ -51,10 +51,11 @@ body {
   display: inline-block;
   margin-right: 2%;
   height: 80%;
+  transition: 0.5s;
 }
 
 .slide:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .rightButton,
@@ -105,8 +106,6 @@ body {
   margin-top: 0.2%;
   margin-bottom: 0.2%;
 }
-logo:hover {
-}
 
 .textClass {
   cursor: pointer;
@@ -115,10 +114,8 @@ logo:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 1%;
-  padding-right: 1%;
-  border: 2px solid white;
-  border-radius: 5%;
+  /* padding-left: 1%;
+  padding-right: 1%; */
 }
 
 .textClass1 {
@@ -127,13 +124,19 @@ logo:hover {
 .textClass2 {
   margin-left: auto;
 }
-.textClass1:hover,
-.textClass2:hover {
-  border-color: rgb(255, 194, 102);
-}
 .centerText {
+  width: 100%;
   display: inline-block;
   text-align: center;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 15%;
+  transition: 0.25s;
+}
+
+.centerText:hover {
+  border-color: rgb(255, 194, 102);
+  background-color: rgb(255, 184, 77);
 }
 
 article p {
