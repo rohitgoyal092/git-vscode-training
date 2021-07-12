@@ -49,25 +49,28 @@ body {
   cursor: pointer;
   border: 2px solid rgb(70, 77, 109);
   display: inline-block;
+  image-rendering: auto;
   margin-right: 2%;
   height: 80%;
   transition: 0.5s;
 }
 
 .slide:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .rightButton,
 .leftButton {
+  position: relative;
+  display: inline-block;
   z-index: 1;
   cursor: pointer;
   display: inline-block;
   margin: auto;
-  height: 60px;
-  width: 150px;
+  height: 50px;
+  flex: 0 0 50px;
   border: 2px var(--borderColor);
-  border-radius: 50%;
+  border-radius: 25px;
   border: 3px solid var(--borderColor);
 }
 .slide:last-child {
@@ -78,15 +81,16 @@ body {
   mix-blend-mode: multiply;
   object-fit: contain;
   height: 60%;
+  image-rendering: auto;
   width: 60%;
 }
 
 .rightButton {
-  margin-left: -2.5%;
+  right: 25px;
 }
 
 .leftButton {
-  margin-right: -2.5%;
+  left: 25px;
 }
 
 .slides.header {
@@ -114,8 +118,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding-left: 1%;
-  padding-right: 1%; */
 }
 
 .textClass1 {
