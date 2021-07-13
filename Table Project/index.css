@@ -12,6 +12,7 @@
   --topLeftColor: rgb(2, 194, 120);
   --topRightColor: rgb(5, 231, 144);
   --bottomRightColor: rgb(161, 241, 211);
+  --contentBackground: rgb(167, 231, 223);
 }
 
 html {
@@ -20,6 +21,7 @@ html {
 body {
   margin: 0px;
   font-family: var(--headerFontType1);
+  background: var(--contentBackground);
 }
 
 .header {
@@ -113,22 +115,30 @@ body {
   font-size: 1.2em;
 }
 
+.contentClass {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .inputOutline {
   display: flex;
-  justify-content: stretch;
-  width: 100%;
+  justify-content: space-evenly;
+  /* width: 100%; */
   flex-wrap: wrap;
 }
 
 .labelBox {
   display: block;
-  margin-right: 20px;
-  flex: 1 1 auto;
+  margin-right: 5px;
+}
+.topLabel {
 }
 
 .ibox {
-  width: 100%;
+  /* width: 100px; */
   height: 30px;
+  border: 2px solid black;
+  text-align: center;
 }
 
 .buttonPress {
@@ -139,7 +149,7 @@ body {
 }
 
 .grid {
-  border: 10px solid var(--headerBackground);
+  /* border: 3px solid black; */
   border-radius: 1%;
   margin-left: auto;
   margin-right: auto;
@@ -147,7 +157,6 @@ body {
   grid-template-columns: max-content 1fr;
   grid-template-rows: max-content 1fr;
   overflow: hidden;
-  gap: 0px;
 }
 
 .topLeft,
@@ -158,10 +167,6 @@ body {
   border: 0.2px solid black;
   display: grid;
 }
-.topLeft {
-  background: var(--topLeftColor);
-  font-weight: bolder;
-}
 .topRight,
 .bottomLeft {
   background: var(--topRightColor);
@@ -169,16 +174,32 @@ body {
   scrollbar-width: thin;
   font-weight: bold;
 }
+.topLeft {
+  background: var(--topLeftColor);
+  font-weight: bolder;
+  border-top: none;
+  border-left: none;
+}
+.topRight {
+  border-top: none;
+  border-right: none;
+}
+.bottomLeft {
+  border-left: none;
+  border-bottom: none;
+}
 .bottomRight {
   background: var(--bottomRightColor);
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   scrollbar-width: thin;
   font-weight: normal;
+  border-right: none;
+  border-bottom: none;
 }
 
 .cellClass {
   display: flex;
-  border: 0.01px solid rgb(102, 102, 102);
+  border: 0.01px solid rgb(151, 148, 148);
   text-align: center;
   justify-content: center;
   align-items: center;
