@@ -168,8 +168,8 @@ body {
 .topRight,
 .bottomLeft {
   background: var(--topRightColor);
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-  scrollbar-width: thin;
+  /* scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  scrollbar-width: thin; */
   font-weight: bold;
 }
 .topLeft {
@@ -188,9 +188,9 @@ body {
 }
 .bottomRight {
   background: var(--bottomRightColor);
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-  scrollbar-width: thin;
-  font-weight: normal;
+  /* scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  scrollbar-width: thin; */
+  font-weight: 600;
   border-right: none;
   border-bottom: none;
 }
