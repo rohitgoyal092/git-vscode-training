@@ -191,12 +191,19 @@ bottomLeft.onscroll = function (event) {
   bottomLeftScrolled = false;
 };
 
-function checkValidNumber(str) {
+let validRegex = /^[0-9]+$/;
+
+function checkValidNumber(str, event) {
+  if (event.data === "+" || event.data === "-") {
+    return false;
+  }
   if (str.length < 1) {
     return true;
   }
-  let n = Math.floor(Number(str));
-  return n !== Infinity && String(n) === str && n >= 0;
+  if (str.match(validRegex)) {
+    return true;
+  }
+  return false;
 }
 
 function getVal(str) {
@@ -207,7 +214,7 @@ function getVal(str) {
 }
 
 inputRows.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.rows = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
@@ -220,7 +227,7 @@ inputRows.addEventListener("input", function (event) {
 });
 
 inputCols.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.cols = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
@@ -233,7 +240,7 @@ inputCols.addEventListener("input", function (event) {
 });
 
 inputFixRows.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.fixRow = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
@@ -241,14 +248,12 @@ inputFixRows.addEventListener("input", function (event) {
   } else {
     specs.fixRow = parseInt(this.value);
   }
-  console.log(this.value);
   specs.rows = Math.max(getVal(inputRows.value), specs.fixRow);
-  console.log(specs);
   resize(specs);
 });
 
 inputFixCols.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.fixCol = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
@@ -261,7 +266,7 @@ inputFixCols.addEventListener("input", function (event) {
 });
 
 inputN.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.N = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
@@ -274,7 +279,7 @@ inputN.addEventListener("input", function (event) {
 });
 
 inputM.addEventListener("input", function (event) {
-  if (!checkValidNumber(this.value)) {
+  if (!checkValidNumber(this.value, event)) {
     specs.M = 0;
     this.value = 0;
   } else if (this.value.length < 1) {
