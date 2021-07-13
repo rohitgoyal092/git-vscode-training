@@ -9,6 +9,9 @@
   --header2Background: rgb(0, 0, 0);
   --scrollbarBG: #cfd8dc;
   --thumbBG: #90a4ae;
+  --topLeftColor: rgb(2, 194, 120);
+  --topRightColor: rgb(5, 231, 144);
+  --bottomRightColor: rgb(161, 241, 211);
 }
 
 html {
@@ -136,6 +139,8 @@ body {
 }
 
 .grid {
+  border: 10px solid var(--headerBackground);
+  border-radius: 1%;
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -150,25 +155,22 @@ body {
 .bottomLeft,
 .bottomRight {
   overflow: scroll;
-  /* width: fit-content;
-  height: fit-content; */
-  border: 1.5px solid black;
+  border: 0.2px solid black;
   display: grid;
-  /* overflow: hidden; */
 }
 .topLeft {
-  background: rgb(2, 194, 120);
+  background: var(--topLeftColor);
   font-weight: bolder;
 }
 .topRight,
 .bottomLeft {
-  background: rgb(5, 231, 144);
+  background: var(--topRightColor);
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   scrollbar-width: thin;
   font-weight: bold;
 }
 .bottomRight {
-  background: rgb(161, 241, 211);
+  background: var(--bottomRightColor);
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   scrollbar-width: thin;
   font-weight: normal;
@@ -176,10 +178,8 @@ body {
 
 .cellClass {
   display: flex;
-  border: 0.5px solid black;
+  border: 0.01px solid rgb(102, 102, 102);
   text-align: center;
   justify-content: center;
   align-items: center;
-  /* padding-top: auto;
-  padding-bottom: auto; */
 }

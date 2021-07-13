@@ -9,12 +9,10 @@ let defaultSpecs = {
 
 let inputRows = document.querySelector(".labelBox:nth-child(1) .ibox");
 let inputCols = document.querySelector(".labelBox:nth-child(2) .ibox");
-let inputFixCols = document.querySelector(".labelBox:nth-child(3) .ibox");
-let inputFixRows = document.querySelector(".labelBox:nth-child(4) .ibox");
+let inputFixRows = document.querySelector(".labelBox:nth-child(3) .ibox");
+let inputFixCols = document.querySelector(".labelBox:nth-child(4) .ibox");
 let inputN = document.querySelector(".labelBox:nth-child(5) .ibox");
 let inputM = document.querySelector(".labelBox:nth-child(6) .ibox");
-// let scrollToCol = document.querySelector(".labelBox:nth-child(7) .ibox");
-// let scrollToRow = document.querySelector(".labelBox:nth-child(8) .ibox");
 
 let cellWidth = "80px",
   cellHeight = "40px";
@@ -30,8 +28,30 @@ let bottomRight = document.querySelector(".bottomRight");
 
 function getStyling(i, j, specs) {
   let s = "";
-  s += `<div class = "cellClass">(${i}, ${j})</div>`;
+  s += `<div class = "cellClass">${i}, ${j}</div>`;
   return s;
+}
+
+function resetStyle() {
+  if (topLeft.hasAttribute(style)) {
+    topLeft.removeAttribute(style);
+  }
+  if (topRight.hasAttribute(style)) {
+    topRight.removeAttribute(style);
+  }
+  if (bottomLeft.hasAttribute(style)) {
+    bottomLeft.removeAttribute(style);
+  }
+  if (bottomRight.hasAttribute(style)) {
+    bottomRight.removeAttribute(style);
+  }
+}
+
+function setNull(corner) {
+  corner.setAttribute(
+    "style",
+    "grid-template-columns:repeat(1,0px);grid-template-rows:repeat(1,0px);border:none"
+  );
 }
 
 function styleDivs(specs) {
@@ -39,38 +59,57 @@ function styleDivs(specs) {
   let w = cellWidthNP * Math.max(specs.M, specs.fixCol + 1);
   w = Math.min(w, cellWidthNP * specs.cols);
   let h = cellHeightNP * Math.max(specs.N, specs.fixRow + 1);
-  // console.log(Math.max(specs.N, specs.fixRow + 1));
   h = Math.min(h, cellHeightNP * specs.rows);
 
   grid.setAttribute("style", `width:${w}px;height:${h}px`);
+  // resetStyle();
 
-  topLeft.style.gridTemplateColumns = `repeat(${specs.fixCol}, ${cellWidth})`;
-  topLeft.style.gridTemplateRows = `repeat(${specs.fixRow}, ${cellHeight})`;
+  if (Math.min(specs.fixCol, specs.fixRow) > 0) {
+    topLeft.style.gridTemplateColumns = `repeat(${specs.fixCol}, ${cellWidth})`;
+    topLeft.style.gridTemplateRows = `repeat(${specs.fixRow}, ${cellHeight})`;
+    topLeft.style.removeProperty("border");
+  } else {
+    setNull(topLeft);
+  }
 
-  topRight.style.gridTemplateColumns = `repeat(${
-    specs.cols - specs.fixCol
-  }, ${cellWidth})`;
-  topRight.style.gridTemplateRows = `repeat(${specs.fixRow}, ${cellHeight})`;
+  if (Math.min(specs.cols - specs.fixCol, specs.fixRow) > 0) {
+    topRight.style.gridTemplateColumns = `repeat(${
+      specs.cols - specs.fixCol
+    }, ${cellWidth})`;
+    topRight.style.gridTemplateRows = `repeat(${specs.fixRow}, ${cellHeight})`;
+    topRight.style.removeProperty("border");
+  } else {
+    setNull(topRight);
+  }
 
-  bottomLeft.style.gridTemplateColumns = `repeat(${specs.fixCol}, ${cellWidth})`;
-  bottomLeft.style.gridTemplateRows = `repeat(${
-    specs.rows - specs.fixRow
-  }, ${cellHeight})`;
+  if (Math.min(specs.fixCol, specs.rows - specs.fixRow) > 0) {
+    bottomLeft.style.gridTemplateColumns = `repeat(${specs.fixCol}, ${cellWidth})`;
+    bottomLeft.style.gridTemplateRows = `repeat(${
+      specs.rows - specs.fixRow
+    }, ${cellHeight})`;
+    bottomLeft.style.removeProperty("border");
+  } else {
+    setNull(bottomLeft);
+  }
 
-  bottomRight.style.gridTemplateColumns = `repeat(${
-    specs.cols - specs.fixCol
-  }, ${cellWidth})`;
-  bottomRight.style.gridTemplateRows = `repeat(${
-    specs.rows - specs.fixRow
-  }, ${cellHeight})`;
-  // console.log(topLeft, topRight, bottomLeft, bottomRight);
+  if (Math.min(specs.cols - specs.fixCol, specs.rows - specs.fixRow) > 0) {
+    bottomRight.style.gridTemplateColumns = `repeat(${
+      specs.cols - specs.fixCol
+    }, ${cellWidth})`;
+    bottomRight.style.gridTemplateRows = `repeat(${
+      specs.rows - specs.fixRow
+    }, ${cellHeight})`;
+    bottomRight.style.removeProperty("border");
+  } else {
+    setNull(bottomRight);
+  }
 }
 
 function build(specs) {
   let grid = document.querySelector(".grid");
-  styleDivs(specs);
   let s = "";
-  // console.log("topleft");
+  styleDivs(specs);
+
   for (let i = 0; i < specs.fixRow; i++) {
     for (let j = 0; j < specs.fixCol; j++) {
       s += getStyling(i, j, specs);
@@ -79,16 +118,15 @@ function build(specs) {
   document.querySelector(".topLeft").innerHTML = s;
   s = "";
 
-  // console.log("topRight");
   for (let i = 0; i < specs.fixRow; i++) {
     for (let j = specs.fixCol; j < specs.cols; j++) {
       s += getStyling(i, j, specs);
     }
   }
+
   document.querySelector(".topRight").innerHTML = s;
   s = "";
 
-  // console.log("bottomLeft");
   for (let i = specs.fixRow; i < specs.rows; i++) {
     for (let j = 0; j < specs.fixCol; j++) {
       s += getStyling(i, j, specs);
@@ -97,14 +135,13 @@ function build(specs) {
   document.querySelector(".bottomLeft").innerHTML = s;
   s = "";
 
-  // console.log("bottomRight");
   for (let i = specs.fixRow; i < specs.rows; i++) {
     for (let j = specs.fixCol; j < specs.cols; j++) {
       s += getStyling(i, j, specs);
     }
   }
+
   document.querySelector(".bottomRight").innerHTML = s;
-  // console.log(s);
   s = "";
 }
 
@@ -119,15 +156,11 @@ function setDefault() {
   inputCols.setAttribute("value", defaultSpecs.cols.toString());
   inputN.setAttribute("value", defaultSpecs.N.toString());
   inputM.setAttribute("value", defaultSpecs.M.toString());
-  // scrollToCol.setAttribute("value", "");
-  // scrollToRow.setAttribute("value", "");
 }
 
 window.addEventListener("load", (event) => {
   setDefault();
   resize(defaultSpecs);
-  // resize(defaultSpecs);
-  // resize(defaultSpecs);
 });
 
 let topRightScrolled = false,
@@ -158,98 +191,97 @@ bottomLeft.onscroll = function (event) {
   bottomLeftScrolled = false;
 };
 
-function checkDig(str) {
-  if (str === null) return true;
-  for (let i = 0; i < 10; i++) {
-    if (i.toString() == str) return true;
+function checkValidNumber(str) {
+  if (str.length < 1) {
+    return true;
   }
-  return false;
+  let n = Math.floor(Number(str));
+  return n !== Infinity && String(n) === str && n >= 0;
 }
 
-// inputRows.onkeydown = function (event) {
-//   if (event.key == "Backspace" || event.key == "Delete") {
-//     if (inputRows.value.length < 1) return false;
-//     num = Math.floor(specs.rows / 10);
-
-//     specs.rows = num;
-//     specs.fixRow = Math.min(num, specs.fixRow);
-//     inputFixRows.value = specs.fixRow;
-//     inputRows.value = specs.rows;
-
-//     resize(specs);
-//   }
-//   if (!checkDig(event.key)) return false;
-//   num = 10 * specs.rows + parseInt(event.key);
-//   specs.rows = num;
-//   resize(specs);
-// };
-
-inputCols.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
-    inputCols.value = 0;
-    return;
+function getVal(str) {
+  if (str.length === 0) {
+    return 0;
   }
-  specs.cols = parseInt(inputCols.value);
-  resize(specs);
-});
+  return parseInt(str);
+}
 
 inputRows.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
+  if (!checkValidNumber(this.value)) {
+    specs.rows = 0;
     this.value = 0;
-    return;
+  } else if (this.value.length < 1) {
+    specs.rows = 0;
+  } else {
+    specs.rows = parseInt(this.value);
   }
-  specs.rows = parseInt(inputRows.value);
+  specs.rows = Math.max(specs.rows, specs.fixRow);
   resize(specs);
 });
 
-inputN.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
+inputCols.addEventListener("input", function (event) {
+  if (!checkValidNumber(this.value)) {
+    specs.cols = 0;
     this.value = 0;
-    return;
+  } else if (this.value.length < 1) {
+    specs.cols = 0;
+  } else {
+    specs.cols = parseInt(this.value);
   }
-  specs.N = parseInt(inputN.value);
-  resize(specs);
-});
-
-inputM.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
-    this.value = 0;
-    return;
-  }
-  specs.M = parseInt(inputM.value);
+  specs.cols = Math.max(specs.cols, specs.fixCol);
   resize(specs);
 });
 
 inputFixRows.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
+  if (!checkValidNumber(this.value)) {
+    specs.fixRow = 0;
     this.value = 0;
-    return;
+  } else if (this.value.length < 1) {
+    specs.fixRow = 0;
+  } else {
+    specs.fixRow = parseInt(this.value);
   }
-  specs.fixRow = parseInt(inputFixRows.value);
+  console.log(this.value);
+  specs.rows = Math.max(getVal(inputRows.value), specs.fixRow);
+  console.log(specs);
   resize(specs);
 });
 
 inputFixCols.addEventListener("input", function (event) {
-  if (!checkDig(event.data)) {
+  if (!checkValidNumber(this.value)) {
+    specs.fixCol = 0;
     this.value = 0;
-    return;
+  } else if (this.value.length < 1) {
+    specs.fixCol = 0;
+  } else {
+    specs.fixCol = parseInt(this.value);
   }
-  specs.fixCol = parseInt(inputFixCols.value);
+  specs.cols = Math.max(getVal(inputCols.value), specs.fixCol);
   resize(specs);
 });
 
-// inputCols.input = function (event) {
-//   if (event.key == "Backspace" || event.key == "Delete") {
-//     if (inputCols.value.length < 1) return false;
-//     num = Math.floor(specs.cols / 10);
-//     specs.cols = num;
-//     specs.fixCol = Math.min(num, specs.fixCol);
-//     inputFixCols.value = specs.fixCol;
-//     inputCols.value = specs.cols;
-//     resize(specs);
-//   }
-//   if (!checkDig(event.key)) return false;
-//   num = 10 * specs.cols + parseInt(event.key);
-//   specs.cols = num;
-//   resize(specs);
-// };
+inputN.addEventListener("input", function (event) {
+  if (!checkValidNumber(this.value)) {
+    specs.N = 0;
+    this.value = 0;
+  } else if (this.value.length < 1) {
+    specs.N = 0;
+  } else {
+    specs.N = parseInt(this.value);
+  }
+  specs.N = Math.min(specs.N, specs.rows);
+  resize(specs);
+});
+
+inputM.addEventListener("input", function (event) {
+  if (!checkValidNumber(this.value)) {
+    specs.M = 0;
+    this.value = 0;
+  } else if (this.value.length < 1) {
+    specs.M = 0;
+  } else {
+    specs.M = parseInt(this.value);
+  }
+  specs.M = Math.min(specs.M, specs.cols);
+  resize(specs);
+});
