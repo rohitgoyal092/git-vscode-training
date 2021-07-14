@@ -42,7 +42,7 @@ function resizeGrid(specs) {
   w = Math.min(w, cellWidth * specs.cols);
   let h = cellHeight * Math.max(specs.N, specs.fixRow + 1);
   h = Math.min(h, cellHeight * specs.rows);
-
+  console.log(w / cellWidth, h);
   grid.setAttribute("style", `width:${w}px;height:${h}px`);
 }
 
@@ -220,6 +220,7 @@ inputRows.addEventListener("input", function (event) {
 
 inputCols.addEventListener("input", function (event) {
   specs.cols = Math.max(getInputFieldValue(this, event), specs.fixCol);
+  console.log(specs);
   resize(specs);
 });
 
@@ -236,11 +237,11 @@ inputFixCols.addEventListener("input", function (event) {
 });
 
 inputN.addEventListener("input", function (event) {
-  specs.N = Math.min(getInputFieldValue(this, event), specs.rows);
+  specs.N = getInputFieldValue(this, event);
   resize(specs);
 });
 
 inputM.addEventListener("input", function (event) {
-  specs.M = Math.min(getInputFieldValue(this, event), specs.cols);
+  specs.M = getInputFieldValue(this, event);
   resize(specs);
 });
