@@ -160,7 +160,6 @@ body {
 .topRight,
 .bottomLeft,
 .bottomRight {
-  overflow: scroll;
   border: 0.2px solid black;
   display: grid;
 }
@@ -169,6 +168,10 @@ body {
   background: var(--topRightColor);
   font-weight: bold;
 }
+.bottomLeft::-webkit-scrollbar,
+.topRight::-webkit-scrollbar {
+  display: none;
+}
 .topLeft {
   background: var(--topLeftColor);
   font-weight: bolder;
@@ -176,14 +179,21 @@ body {
   border-left: none;
 }
 .topRight {
+  overflow-x: scroll;
   border-top: none;
   border-right: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .bottomLeft {
+  overflow-y: scroll;
   border-left: none;
   border-bottom: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .bottomRight {
+  overflow: scroll;
   background: var(--bottomRightColor);
   font-weight: 600;
   border-right: none;
