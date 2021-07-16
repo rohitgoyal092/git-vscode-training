@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+    <style>
+      .boxType {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        flex-wrap: wrap;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        background-color: green;
+      }
+    </style>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      // const element = React.createElement("div", {
+      //   children: ["Hello There, ", "I am General Kenobi"],
+      //   className: "container",
+      // });
+
+      // const age = 10;
+      // const className = "container";
+      // const children = "Hello There. This is General Kenobi";
+      // const props = { className, children }; //Order of arguments doesn't matter
+      // const element = <div id='testingId' {...props} />;
+
+      // const element = (
+      //   <div className={className}>
+      //     {`This is the current output : ${age}. `}
+      //     {"This is General Kenobi"}
+      //   </div>
+      // );
+      // const element = React.createElement(
+      //   React.Fragment,
+      //   null,
+      //   element1,
+      //   element2
+      // );
+
+      // GetElement.propTypes = {
+      //   msg: PropTypes.string.isRequired,
+      //   msg1: PropTypes.string.isRequired,
+      // };
+      // const element = (
+      //   <>
+      //     <GetElement msg={"msg output ----- "} msg1={"msg1 output ---- "}>
+      //       children output ----
+      //     </GetElement>
+      //   </>
+      // );
+      // ReactDOM.render(element, rootElement);
+      // console.log(element);
+
+      // const element1 = React.createElement("span", null, "Hello World. ");
+      // const element2 = React.createElement(
+      //   "span",
+      //   null,
+      //   "This is General Kenobi"
+      // );
+      // const GetElement = (message) => {
+      //   return (
+      //     <span className='message'>
+      //       {message.msg} {message.msg1} {message.children}
+      //     </span>
+      //   );
+      // };
+
+      // function tickTock() {
+      //   const time = new Date().toLocaleTimeString();
+      //   const element = (
+      //     <div className='boxType'>
+      //       <div style={{ display: "block", width: "100%" }}>Clock Time : </div>
+      //       {time}
+      //     </div>
+      //   );
+      //   ReactDOM.render(element, rootElement);
+      // }
+      // tickTock();
+      // setInterval(tickTock, 1000);
+      function InputForm() {
+        const [name, setName] = React.useState(() => {
+          console.log("loaded from local storage");
+          return window.localStorage.getItem("name") || "";
+        });
+        console.log("rerendered");
+        React.useEffect(() => {
+          window.localStorage.setItem("name", name);
+        });
+        function handleChange(event) {
+          setName(event.target.value);
+        }
+        return (
+          <div>
+            <form>
+              <label htmlFor='name'>Name:</label>
+              <input id='name' onChange={handleChange} value={name} />
+            </form>
+            {name ? <strong>{name}</strong> : "Please type in your name"}
+          </div>
+        );
+      }
+      const element = <InputForm />;
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
