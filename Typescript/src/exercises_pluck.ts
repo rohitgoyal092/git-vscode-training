@@ -1,7 +1,3 @@
-function pluckit<T, V extends keyof T>(obj: T, propertyNames: V[]): T[V][] {
-  const returnArray: T[V][] = propertyNames.map((x) => obj[x]);
-  return returnArray;
-}
 interface A {
   b: string;
   c: {
@@ -21,6 +17,11 @@ const obj3: A = {
   f: 3,
   50: "fifty",
 };
+
+function pluckit<T, V extends keyof T>(obj: T, propertyNames: V[]): T[V][] {
+  const returnArray: T[V][] = propertyNames.map((x) => obj[x]);
+  return returnArray;
+}
 
 console.log("Pluck test : ", pluckit(obj3, ["b", "c"]));
 
@@ -50,14 +51,10 @@ function flattenArray(arr: Array<any>): Array<any> {
 
 console.log(flattenArray([1, 2, [[3], 4]]));
 
-interface functionType<Inp, Out> {
-  (arg: Inp): Out;
-}
-
 function composeRTL<Inp, Out>(
   arg: Inp,
-  currentFunction: functionType<Inp, Out>,
-  nxtFunction: functionType<Out, any> | undefined,
+  currentFunction: (arg: Inp) => Out,
+  nxtFunction: (arg: Out) => any | undefined,
   ...functions: any[] | undefined
 ): any {
   let cans: Out = currentFunction(arg);
