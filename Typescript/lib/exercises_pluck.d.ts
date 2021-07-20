@@ -41,7 +41,8 @@ declare function getObjectValues<T, K extends keyof T>(obj: T | undefined): K[];
  * @param arr
  * @returns
  */
-declare function flattenArray(arr: Array<any>): Array<any>;
+declare type genericArrayType<T> = Array<T> | Array<genericArrayType<T>>;
+declare function flattenArray<T>(arr: genericArrayType<T>): T[];
 /**
  * Composes a list of functions from R to L (Opposite order to general composition).
  * @param arg

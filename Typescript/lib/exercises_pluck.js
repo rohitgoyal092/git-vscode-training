@@ -50,11 +50,6 @@ function getObjectValues(obj) {
 }
 console.log("Object Values test(undefined) : ", getObjectValues(undefined));
 console.log("Object Values test(object) : ", getObjectValues(obj3));
-/**
- * Flattens an N-D array to a linear array.
- * @param arr
- * @returns
- */
 function flattenArray(arr) {
     let arr1 = [];
     for (let i = 0; i < arr.length; i++) {

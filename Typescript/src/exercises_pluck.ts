@@ -83,13 +83,16 @@ console.log("Object Values test(object) : ", getObjectValues(obj3));
  * @param arr
  * @returns
  */
-function flattenArray(arr: Array<any>): Array<any> {
-  let arr1: Array<any> = [];
+
+type genericArrayType<T> = Array<T> | Array<genericArrayType<T>>;
+
+function flattenArray<T>(arr: genericArrayType<T>): T[] {
+  let arr1: T[] = [];
   for (let i = 0; i < arr.length; i++) {
     if (!Array.isArray(arr[i])) {
-      arr1.push(arr[i]);
+      arr1.push(arr[i] as T);
     } else {
-      let arr2 = flattenArray(arr[i]);
+      let arr2: T[] = flattenArray(arr[i] as genericArrayType<T>);
       arr1.push(...arr2);
     }
   }
