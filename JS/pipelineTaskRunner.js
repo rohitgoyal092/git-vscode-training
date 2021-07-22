@@ -2,12 +2,15 @@
  * Constructor function to get a new dummy delay function
  * @param {*} duration
  */
+
+const probabilityFailure = 0.2;
+
 function genericDelayFunctionGenerator(duration) {
   this.duration = duration;
   this.execute = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (Math.random() < 0.2) {
+        if (Math.random() < probabilityFailure) {
           reject("");
         } else {
           resolve("");
@@ -66,8 +69,19 @@ function pipeLineExecuter(...functions) {
 /**
  * List of functions to run in pipeline
  */
+const syncFunction = () => {
+  return new Promise(function (resolve, reject) {
+    if (Math.random() < probabilityFailure) {
+      reject("");
+    } else {
+      console.log("Synchronous Function Executed");
+      resolve("");
+    }
+  });
+};
 let functions = [
   new genericDelayFunctionGenerator(1000).execute,
+  syncFunction,
   new genericDelayFunctionGenerator(2000).execute,
   new genericDelayFunctionGenerator(1500).execute,
 ];
