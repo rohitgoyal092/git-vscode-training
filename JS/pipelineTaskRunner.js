@@ -1,10 +1,9 @@
+const probabilityFailure = 0.2;
+
 /**
  * Constructor function to get a new dummy delay function
  * @param {*} duration
  */
-
-const probabilityFailure = 0.2;
-
 function genericDelayFunctionGenerator(duration) {
   this.duration = duration;
   this.execute = () => {
@@ -28,15 +27,17 @@ function genericDelayFunctionGenerator(duration) {
  */
 
 function functionPromiseWrapper(currentFunction, id) {
-  return new Promise((resolve, reject) => {
-    currentFunction()
-      .then(function (message) {
-        resolve(`Function : ${id} successfully executed.` + message);
-      })
-      .catch(function (error) {
-        reject(`Error occured for function : ${id}.` + error);
-      });
-  });
+  return Promise.resolve()
+    .then(function (message) {
+      return currentFunction();
+    })
+    .then(function (message) {
+      console.log(`Successfully executed function : ${id}`);
+      return message;
+    })
+    .catch(function (message) {
+      return Promise.reject(`Error occured for function : ${id} => ${message}`);
+    });
 }
 
 /**
@@ -50,11 +51,11 @@ function pipeLineExecuter(...functions) {
       return runningPromise
         .then(function (message) {
           let currentPromise = functionPromiseWrapper(currentFunction, currId);
-          currId++;
           return currentPromise;
         })
         .then(function (message) {
-          console.log(message);
+          console.log(`Return value of function ${currId} : ${message}`);
+          currId++;
           return message;
         });
     }, Promise.resolve(""))
@@ -70,14 +71,11 @@ function pipeLineExecuter(...functions) {
  * List of functions to run in pipeline
  */
 const syncFunction = () => {
-  return new Promise(function (resolve, reject) {
-    if (Math.random() < probabilityFailure) {
-      reject("");
-    } else {
-      console.log("Synchronous Function Executed");
-      resolve("");
-    }
-  });
+  if (Math.random() < probabilityFailure) {
+    throw new Error("Error occured inside Synchronous function");
+  } else {
+    console.log("Synchronous Function Executed");
+  }
 };
 let functions = [
   new genericDelayFunctionGenerator(1000).execute,
