@@ -12,6 +12,8 @@
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+    <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
     <style>
       .boxType {
         display: flex;
@@ -91,15 +93,20 @@
       // }
       // tickTock();
       // setInterval(tickTock, 1000);
-      function InputForm() {
-        const [name, setName] = React.useState(() => {
+      function useLocalStorageState(key, defaultValue = "") {
+        const [state, setState] = React.useState(() => {
           console.log("loaded from local storage");
-          return window.localStorage.getItem("name") || "";
+          return window.localStorage.getItem(key) || defaultValue;
         });
         console.log("rerendered");
         React.useEffect(() => {
-          window.localStorage.setItem("name", name);
+          window.localStorage.setItem(key, state, [key, state]);
         });
+        return [state, setState];
+      }
+
+      function InputForm() {
+        const [name, setName] = useLocalStorageState("name");
         function handleChange(event) {
           setName(event.target.value);
         }
