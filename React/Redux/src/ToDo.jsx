@@ -1,10 +1,11 @@
 let idCounter = 1;
+
 const convertActionToState = (state, action) => {
   switch (action.type) {
     case "ADD TODO":
       return {
         id: action.id,
-        description: action.description,
+        description: action.id + ". " + action.description,
         completed: action.completed,
       };
     case "TOGGLE TODO":
