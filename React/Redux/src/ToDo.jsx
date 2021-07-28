@@ -76,7 +76,7 @@ const ToDos = ({ values, onAddition, onRemoval, onSelection, ...props }) => {
         })}
       </div>
       <div class='FormClass'>
-        <label>
+        <label className='FormTextBoxClass'>
           <div className='InputField'>Input a Task</div>
           <input
             className='TextBox'

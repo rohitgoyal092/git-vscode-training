@@ -36,7 +36,7 @@ body {
   width: 100%;
   height: 68vh;
   margin: 10px auto;
-  padding: 0 22%;
+  padding: 0 16%;
   justify-content: space-between;
   align-items: center;
 }
@@ -48,7 +48,7 @@ body {
 .TaskClass {
   display: block;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   width: 45%;
   align-self: center;
   border: 2px solid black;
@@ -58,6 +58,7 @@ body {
 .FormClass {
   border: 2px solid black;
   padding: 15px;
+  width: 40%;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -69,7 +70,7 @@ body {
   padding: 5px 10px;
   width: 90%;
   cursor: pointer;
-  overflow: scroll;
+  overflow: auto;
   margin: 20px auto;
   text-align: center;
   background-image: linear-gradient(
@@ -79,6 +80,14 @@ body {
   );
   border: 2px solid black;
   border-radius: 10px;
+}
+
+.FormTextBoxClass {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .InputField,
@@ -97,7 +106,7 @@ body {
 }
 
 .TextBox {
-  width: 400px;
+  width: 90%;
   border: 2px solid black;
   padding: 10px 10px;
   cursor: text;
