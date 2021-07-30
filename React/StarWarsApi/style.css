@@ -101,8 +101,6 @@ body {
 .CharacterClass {
   text-align: center;
   overflow: auto;
-  height: max-content;
-  width: max-content;
   margin-top: 2%;
 }
 
