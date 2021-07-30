@@ -70,7 +70,7 @@ body {
 }
 .InputBoxClass {
   padding: 2%;
-  width: 30%;
+  width: 40%;
   text-align: center;
 }
 .ButtonClass {
@@ -101,6 +101,8 @@ body {
 .CharacterClass {
   text-align: center;
   overflow: auto;
+  height: max-content;
+  width: max-content;
   margin-top: 2%;
 }
 
@@ -112,5 +114,4 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20%;
 }
