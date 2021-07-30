@@ -50,9 +50,7 @@ const store = createStore(ToDosReducer);
 
 const ToDos = ({ values, onAddition, onRemoval, onSelection, ...props }) => {
   const [description, setDescription] = React.useState("");
-  console.log("rerender ", description);
   const handleChange = (e) => {
-    console.log("current = ", description);
     setDescription(e.target.value);
   };
   const handleClickAddition = (e) => {

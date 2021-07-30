@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --black-shade: rgb(63, 62, 62);
+  --white-shade: rgb(233, 228, 228);
+  --border-color: rgb(123, 123, 224);
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  background-image: url(./resources/space.jpeg);
+  background-repeat: repeat;
+  background-repeat: repeat;
+}
+
+#root {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LogoImageClass {
+  object-fit: contain;
+  opacity: 0.75;
+  filter: contrast(2);
+  height: 30%;
+  width: 100%;
+}
+
+.ContainingClass {
+  display: flex;
+  height: 100%;
+  width: 70%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.FormClass,
+.InputBoxClass,
+.ButtonClass,
+.CharacterClass {
+  font-size: 1.15rem;
+}
+
+.ButtonClass,
+.InputBoxClass,
+.FilmClass {
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.FormClass {
+  display: flex;
+  width: 50%;
+  height: 30%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.InputBoxClass {
+  padding: 2%;
+  width: 30%;
+  text-align: center;
+}
+.ButtonClass {
+  cursor: pointer;
+  padding: 3%;
+  opacity: 0.7;
+}
+
+.FilmClass {
+  opacity: 0.85;
+  background-image: linear-gradient(
+    to right,
+    var(--black-shade),
+    var(--white-shade) 20%,
+    var(--white-shade) 80%,
+    var(--black-shade)
+  );
+  text-align: center;
+  display: inline-block;
+  font-size: large;
+  height: 80%;
+  overflow: auto;
+  width: 40%;
+  padding: 4% 2%;
+  /* list-style-position: outside; */
+}
+
+.CharacterClass {
+  text-align: center;
+  overflow: auto;
+  margin-top: 2%;
+}
+
+.CharacterClass:first-child {
+  margin-top: 0;
+}
+
+.NoBorderClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20%;
+}
