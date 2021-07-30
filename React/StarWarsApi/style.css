@@ -57,7 +57,7 @@ body {
 .InputBoxClass,
 .FilmClass {
   border: 2px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .FormClass {

@@ -120,6 +120,7 @@ const MainComponent = () => {
             setidNumber(e.target.value);
           }}
           placeholder='Please input film id'
+          type='number'
         />
 
         <button className='ButtonClass' type='submit'>
