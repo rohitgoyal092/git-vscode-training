@@ -1,4 +1,4 @@
-const baseUrl = "http://swapi.dev/api/films/";
+const baseUrl = "https://swapi.dev/api/films/";
 
 const FilmCharacterComponent = ({
   url,
