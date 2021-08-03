@@ -11,16 +11,24 @@ const FilmCharacterComponent = ({
   const [errorData, setError] = React.useState(null);
   const [fetched, setFetched] = React.useState(true);
 
+  if (typeOfComponent === "FILM")
+    console.log("rerender", urlData, errorData, fetched);
+
   React.useLayoutEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
     let isRunning = true;
     if (url) {
+      if (typeOfComponent === "FILM")
+        console.log("inside ", fetched, errorData, urlData);
       setFetched(false);
       setError(null);
       setUrlData({});
+      if (typeOfComponent === "FILM")
+        console.log("2nd ", fetched, errorData, urlData);
       fetch(url, { signal })
         .then((response) => {
+          console.log("found!");
           if (!isRunning) {
             return;
           }
@@ -44,6 +52,9 @@ const FilmCharacterComponent = ({
           }
         });
     }
+
+    if (typeOfComponent === "FILM")
+      console.log("end ", fetched, errorData, urlData);
     return () => {
       isRunning = false;
       if (fetched) {
