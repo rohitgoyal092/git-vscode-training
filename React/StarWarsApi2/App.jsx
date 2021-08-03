@@ -5,8 +5,8 @@ const URL_ERROR = "url error";
 const DATA_ERROR = "data error";
 const NETWORK_ERROR = "network error";
 const BASE_FILM_URL = "https://swapi.dev/api/films/";
-const RETRY_COUNT = 3;
-const TIMEOUT_LIMIT = 5000;
+const RETRY_COUNT = 10;
+const TIMEOUT_LIMIT = 10000;
 const DEBOUNCE_TIME_LIMIT = 500;
 
 const fetch_retry = ({ controller, url, n, ...args }) => {
