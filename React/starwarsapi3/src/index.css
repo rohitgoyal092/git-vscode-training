@@ -30,7 +30,7 @@ body {
   align-items: center;
 }
 
-.LogoImageClass {
+.logo-image {
   object-fit: contain;
   opacity: 0.75;
   filter: contrast(2);
@@ -38,7 +38,7 @@ body {
   width: 100%;
 }
 
-.ContainingClass {
+.app {
   display: flex;
   height: 100%;
   width: 70%;
@@ -46,21 +46,21 @@ body {
   align-items: center;
 }
 
-.FormClass,
-.InputBoxClass,
-.ButtonClass,
+.app-form,
+.app-input,
+.submit-button,
 .character {
   font-size: 1.15rem;
 }
 
-.ButtonClass,
-.InputBoxClass,
+.submit-button,
+.app-input,
 .film {
   border: 2px solid var(--border-color);
   border-radius: 15px;
 }
 
-.FormClass {
+.app-form {
   display: flex;
   width: 50%;
   height: 30%;
@@ -68,12 +68,12 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
-.InputBoxClass {
+.app-input {
   padding: 2%;
   width: 40%;
   text-align: center;
 }
-.ButtonClass {
+.submit-button {
   cursor: pointer;
   padding: 3%;
   opacity: 0.7;
