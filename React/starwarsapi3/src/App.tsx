@@ -1,31 +1,54 @@
-import { debounceInputHookType } from "./hooks/useDebounceInputHanlding";
+import { DebounceInputHookType } from "./hooks/useDebounceInputHanlding";
 import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
 import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
 import { Film } from "./components/Film";
+import React, { useState } from "react";
+
+const checkStringIsNumber = (txt: string): boolean => {
+  if (txt.length < 1) {
+    return true;
+  }
+  let validRegex = /^[0-9]+$/;
+  if (txt.match(validRegex)) {
+    return true;
+  }
+  return false;
+};
+
+const preventEnterKeyReload = (e: React.KeyboardEvent) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+};
 
 const App = () => {
-  const stateManager: debounceInputHookType<number> =
-    useDebounceInputHanlding(0);
-  const inputRef = stateManager.inputRef;
+  const stateManager: DebounceInputHookType<number> = useDebounceInputHanlding(
+    0 as number
+  );
   const filmId = stateManager.id;
   const isTyping = stateManager.isTyping;
-  const handleKeyUp = stateManager.handleKeyUp;
+  const handleValueChange = stateManager.handleValueChange;
+  const [inputControl, setInputControl] = useState<string>("");
 
-  const preventEnterKeyReload = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    let currInput: string = e.currentTarget.value;
+    if (checkStringIsNumber(currInput)) {
+      setInputControl(() => currInput);
+      handleValueChange(parseInt(currInput, 10));
+    } else {
+      handleValueChange(parseInt(inputControl, 10));
     }
   };
+
   return (
     <div className='app'>
       <form className='app-form' onKeyPress={preventEnterKeyReload}>
         <input
           className='app-input'
-          ref={inputRef}
-          placeholder='Please input film id'
-          type='number'
-          onKeyUp={handleKeyUp}
+          placeholder='Please input film id (Number : 1 to 6)'
+          value={inputControl}
+          onChange={handleChange}
         />
       </form>
       {isTyping ? (

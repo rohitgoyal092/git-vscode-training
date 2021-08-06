@@ -11,48 +11,39 @@ const debounce = (func: Function, timeout = DEBOUNCE_TIME_LIMIT) => {
   };
 };
 
-export interface debounceInputHookType<IdType> {
-  inputRef: React.RefObject<HTMLInputElement>;
+export interface DebounceInputHookType<IdType> {
   id: IdType;
   isTyping: boolean;
-  handleKeyUp: (e: React.KeyboardEvent) => any;
+  handleValueChange: (arg: IdType) => any;
 }
 
 export const useDebounceInputHanlding = <InputType extends string | number>(
   initialId: InputType
-): debounceInputHookType<InputType> => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+): DebounceInputHookType<InputType> => {
   const [input, setinput] = React.useState<InputType>(initialId);
   const [isTyping, setIsTyping] = React.useState<boolean>(false);
   const handleInput = React.useState(() => {
-    return (e: React.KeyboardEvent) => {
-      if (inputRef.current !== null) {
-        const input = inputRef.current.value;
-        setinput(input as InputType);
-        setIsTyping(false);
-      }
+    return (waitingValue: InputType) => {
+      setinput(() => waitingValue);
+      setIsTyping(() => false);
     };
   })[0];
   const handleInputDebounce = React.useState(() => debounce(handleInput))[0];
 
-  const handleKeyUp = React.useState(() => {
-    return (e: React.KeyboardEvent) => {
-      if (inputRef.current !== null) {
-        const input = inputRef.current.value;
-        if (!input) {
-          handleInput(e);
-          return;
-        }
-        setIsTyping(true);
-        handleInputDebounce(e);
+  const handleValueChange = React.useState(() => {
+    return (inputValue: InputType) => {
+      if (!inputValue) {
+        handleInput(inputValue);
+        return;
       }
+      setIsTyping(() => true);
+      handleInputDebounce(inputValue);
     };
   })[0];
 
   return {
-    inputRef: inputRef,
     id: input,
     isTyping: isTyping,
-    handleKeyUp: handleKeyUp,
+    handleValueChange: handleValueChange,
   };
 };

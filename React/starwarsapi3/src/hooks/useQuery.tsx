@@ -13,7 +13,7 @@ export interface Error {
   message: string;
 }
 
-export interface fetchProps {
+export interface FetchProps {
   url: string;
   n: number;
   controller: AbortController;
@@ -24,17 +24,26 @@ const fetch_retry = ({
   url,
   n,
   ...args
-}: fetchProps): Promise<Response | Error> => {
+}: FetchProps): Promise<Response | Error> => {
   const signal: AbortSignal = controller.signal;
-  return fetch(url, { signal }).catch(function (error) {
-    if (signal.aborted) {
-      return Promise.reject(error);
-    }
-    if (n === 1) {
-      return Promise.reject(error);
-    }
-    return fetch_retry({ url: url, n: n - 1, controller: controller, ...args });
-  });
+  return fetch(url, { signal })
+    .then((response) => {
+      return Promise.resolve(response);
+    })
+    .catch(function (error) {
+      if (signal.aborted) {
+        return Promise.reject(error);
+      }
+      if (n === 1) {
+        return Promise.reject(error);
+      }
+      return fetch_retry({
+        url: url,
+        n: n - 1,
+        controller: controller,
+        ...args,
+      });
+    });
 };
 
 const fetch_timeout = ({
@@ -42,7 +51,7 @@ const fetch_timeout = ({
   n,
   controller,
   ...args
-}: fetchProps): Promise<Response | Error> => {
+}: FetchProps): Promise<Response | Error> => {
   return new Promise((resolve, reject) => {
     let myTimeout = setTimeout(() => {
       controller.abort();
@@ -62,13 +71,13 @@ const fetch_timeout = ({
   });
 };
 
-export interface useQueryStateType<DataType> {
+export interface UseQueryStateType<DataType> {
   data: DataType | null;
   error: Error | null;
   status: statusType;
 }
 
-export interface useQueryReturnType<DataType> {
+export interface UseQueryReturnType<DataType> {
   data: DataType | null;
   loading: boolean;
   error: Error | null;
@@ -79,14 +88,14 @@ export const useQuery = <DataType,>({
   ...props
 }: {
   url: string;
-}): useQueryReturnType<DataType> => {
-  const initialState: useQueryStateType<DataType> = {
+}): UseQueryReturnType<DataType> => {
+  const initialState: UseQueryStateType<DataType> = {
     data: null,
     error: null,
     status: NETWORK_STATUS.IDLE,
   };
 
-  const [state, setState] = React.useState<useQueryStateType<DataType>>({
+  const [state, setState] = React.useState<UseQueryStateType<DataType>>({
     ...initialState,
   });
 
@@ -95,7 +104,7 @@ export const useQuery = <DataType,>({
     let isRunning: boolean = true;
     let errorEncountered: boolean = false;
     if (url) {
-      setState((prevState: useQueryStateType<DataType>) => ({
+      setState((prevState: UseQueryStateType<DataType>) => ({
         ...initialState,
         status: NETWORK_STATUS.FETCHING,
       }));
@@ -113,8 +122,8 @@ export const useQuery = <DataType,>({
               errorEncountered = true;
               setState(
                 (
-                  prevState: useQueryStateType<DataType>
-                ): useQueryStateType<DataType> => ({
+                  prevState: UseQueryStateType<DataType>
+                ): UseQueryStateType<DataType> => ({
                   ...prevState,
                   status: NETWORK_STATUS.ERROR,
                   error: {
@@ -136,8 +145,8 @@ export const useQuery = <DataType,>({
             errorEncountered = true;
             setState(
               (
-                prevState: useQueryStateType<DataType>
-              ): useQueryStateType<DataType> => ({
+                prevState: UseQueryStateType<DataType>
+              ): UseQueryStateType<DataType> => ({
                 ...prevState,
                 status: NETWORK_STATUS.ERROR,
                 error: {
@@ -152,7 +161,7 @@ export const useQuery = <DataType,>({
           if (isRunning) {
             if (!errorEncountered) {
               setState(
-                (prevState): useQueryStateType<DataType> => ({
+                (prevState): UseQueryStateType<DataType> => ({
                   ...prevState,
                   data: response,
                   status: NETWORK_STATUS.IDLE,
@@ -165,8 +174,8 @@ export const useQuery = <DataType,>({
           if (isRunning) {
             setState(
               (
-                prevState: useQueryStateType<DataType>
-              ): useQueryStateType<DataType> => ({
+                prevState: UseQueryStateType<DataType>
+              ): UseQueryStateType<DataType> => ({
                 ...prevState,
                 status: NETWORK_STATUS.ERROR,
                 error: {

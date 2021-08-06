@@ -15,11 +15,13 @@ html {
 }
 
 body {
+  margin: 0;
   height: 100%;
   width: 100%;
   background-image: url(resources/space.jpeg);
+  background-size: contain;
   background-repeat: repeat;
-  background-repeat: repeat;
+  overflow: hidden;
 }
 
 #root {
@@ -70,8 +72,9 @@ body {
 }
 .app-input {
   padding: 2%;
-  width: 40%;
+  width: 55%;
   text-align: center;
+  overflow: auto;
 }
 .submit-button {
   cursor: pointer;
