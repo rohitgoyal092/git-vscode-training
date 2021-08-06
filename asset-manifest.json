@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/git-vscode-training/React/starwarsapi3/public/index.html/static/css/main.8c3bbf7f.chunk.css",
+    "main.js": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/main.8cab68c8.chunk.js",
+    "main.js.map": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/main.8cab68c8.chunk.js.map",
+    "runtime-main.js": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/runtime-main.a50ce095.js",
+    "runtime-main.js.map": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/runtime-main.a50ce095.js.map",
+    "static/js/2.25028fae.chunk.js": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/2.25028fae.chunk.js",
+    "static/js/2.25028fae.chunk.js.map": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/2.25028fae.chunk.js.map",
+    "static/js/3.54c26ee6.chunk.js": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/3.54c26ee6.chunk.js",
+    "static/js/3.54c26ee6.chunk.js.map": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/3.54c26ee6.chunk.js.map",
+    "index.html": "/git-vscode-training/React/starwarsapi3/public/index.html/index.html",
+    "static/css/main.8c3bbf7f.chunk.css.map": "/git-vscode-training/React/starwarsapi3/public/index.html/static/css/main.8c3bbf7f.chunk.css.map",
+    "static/js/2.25028fae.chunk.js.LICENSE.txt": "/git-vscode-training/React/starwarsapi3/public/index.html/static/js/2.25028fae.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/git-vscode-training/React/starwarsapi3/public/index.html/static/media/space.6e619917.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a50ce095.js",
+    "static/js/2.25028fae.chunk.js",
+    "static/css/main.8c3bbf7f.chunk.css",
+    "static/js/main.8cab68c8.chunk.js"
+  ]
+}
