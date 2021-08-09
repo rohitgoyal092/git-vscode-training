@@ -1,5 +1,5 @@
-import { MessageContent } from "./MessageContent";
+import { FilmMessageContent } from "./FilmMessageContent";
 
 export const WaitingState = () => {
-  return <MessageContent>{"Receiving Input...."}</MessageContent>;
+  return <FilmMessageContent>{"Receiving Input...."}</FilmMessageContent>;
 };

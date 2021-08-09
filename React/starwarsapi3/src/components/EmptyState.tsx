@@ -1,5 +1,5 @@
-import { MessageContent } from "./MessageContent";
+import { FilmMessageContent } from "./FilmMessageContent";
 
 export const EmptyState = () => {
-  return <MessageContent>{""}</MessageContent>;
+  return <FilmMessageContent>{""}</FilmMessageContent>;
 };
