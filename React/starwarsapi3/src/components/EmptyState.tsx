@@ -1,3 +1,5 @@
+import { MessageContent } from "./MessageContent";
+
 export const EmptyState = () => {
-  return <div className={`film no-border`}>{""}</div>;
+  return <MessageContent>{""}</MessageContent>;
 };

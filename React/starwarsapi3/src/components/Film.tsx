@@ -1,19 +1,20 @@
 import { useQuery } from "../hooks/useQuery";
 import { BASE_FILM_URL } from "../constants/components/Film";
 import { Character } from "./Character";
+import { MessageContent } from "./MessageContent";
 
 export const Film = ({ filmId, ...props }: { filmId: number }) => {
   const { data, loading, error } = useQuery<{ characters: [string] }>({
     url: `${BASE_FILM_URL}${filmId}`,
   });
   if (error) {
-    return <div className={`film no-border`}>{error.message}</div>;
+    return <MessageContent>{error.message}</MessageContent>;
   }
   if (loading) {
-    return <div className={`film no-border`}>{`Retrieving...`}</div>;
+    return <MessageContent>{`Retrieving...`}</MessageContent>;
   }
   if (!data) {
-    return <div className={`film no-border`}>{""}</div>;
+    return <MessageContent>{""}</MessageContent>;
   }
   return (
     <ul className={`film`}>
