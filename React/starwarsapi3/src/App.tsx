@@ -23,8 +23,8 @@ const preventEnterKeyReload = (e: React.KeyboardEvent) => {
 };
 
 const App = () => {
-  const stateManager: DebounceInputHookType<number> = useDebounceInputHanlding(
-    0 as number
+  const stateManager: DebounceInputHookType<string> = useDebounceInputHanlding(
+    "" as string
   );
   const filmId = stateManager.id;
   const isTyping = stateManager.isTyping;
@@ -35,9 +35,7 @@ const App = () => {
     let currInput: string = e.currentTarget.value;
     if (checkStringIsNumber(currInput)) {
       setInputControl(() => currInput);
-      handleValueChange(parseInt(currInput, 10));
-    } else {
-      handleValueChange(parseInt(inputControl, 10));
+      handleValueChange(currInput);
     }
   };
 

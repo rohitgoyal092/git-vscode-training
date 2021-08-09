@@ -37,7 +37,7 @@ export const useDebounceInputHanlding = <InputType extends string | number>(
         handleInputDebounce(inputValue);
         return;
       }
-      setIsTyping(() => true);
+      setIsTyping(true);
       handleInputDebounce(inputValue);
     };
   })[0];

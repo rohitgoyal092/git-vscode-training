@@ -3,7 +3,7 @@ import { BASE_FILM_URL } from "../constants/components/Film";
 import { Character } from "./Character";
 import { FilmMessageContent } from "./FilmMessageContent";
 
-export const Film = ({ filmId, ...props }: { filmId: number }) => {
+export const Film = ({ filmId, ...props }: { filmId: string }) => {
   const { data, loading, error } = useQuery<{ characters: [string] }>({
     url: `${BASE_FILM_URL}${filmId}`,
   });
