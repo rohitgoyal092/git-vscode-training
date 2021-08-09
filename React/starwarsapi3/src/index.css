@@ -111,9 +111,23 @@ body {
   margin-top: 0;
 }
 
-.no-border {
+.no-border,
+.no-border-character {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.no-border {
+  width: 40%;
+}
+
+.no-border-character {
   padding: 0 20%;
+}
+
+.messages {
+  overflow-wrap: anywhere;
+  width: 70%;
+  text-align: center;
 }
