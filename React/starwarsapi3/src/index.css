@@ -111,6 +111,14 @@ body {
   margin-top: 0;
 }
 
+.character:nth-child(2n) {
+  color: rgb(240, 117, 117);
+}
+
+.character:nth-child(2n + 1) {
+  color: rgb(74, 74, 218);
+}
+
 .no-border,
 .no-border-character {
   display: flex;
