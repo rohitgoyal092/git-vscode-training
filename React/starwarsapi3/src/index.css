@@ -5,6 +5,8 @@
   --black-shade: rgb(63, 62, 62);
   --white-shade: rgb(233, 228, 228);
   --border-color: rgb(123, 123, 224);
+  --even-child-color: rgb(240, 117, 117);
+  --odd-child-color: rgb(74, 74, 218);
 }
 
 html {
@@ -112,11 +114,11 @@ body {
 }
 
 .character:nth-child(2n) {
-  color: rgb(240, 117, 117);
+  color: var(--even-child-color);
 }
 
 .character:nth-child(2n + 1) {
-  color: rgb(74, 74, 218);
+  color: var(--odd-child-color);
 }
 
 .no-border,
