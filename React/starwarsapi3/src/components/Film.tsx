@@ -1,5 +1,5 @@
 import { useQuery } from "../hooks/useQuery";
-import { BASE_FILM_URL } from "../constants/components/Film";
+import { BASE_FILM_URL } from "../constants/Film";
 import { Character } from "./Character";
 import { FilmMessageContent } from "./FilmMessageContent";
 

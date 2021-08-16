@@ -1,26 +1,13 @@
+import React, { useState } from "react";
+
 import { DebounceInputHookType } from "./hooks/useDebounceInputHanlding";
 import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
+
 import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
 import { Film } from "./components/Film";
-import React, { useState } from "react";
 
-const checkStringIsNumber = (txt: string): boolean => {
-  if (txt.length < 1) {
-    return true;
-  }
-  let validRegex = /^[0-9]+$/;
-  if (txt.match(validRegex)) {
-    return true;
-  }
-  return false;
-};
-
-const preventEnterKeyReload = (e: React.KeyboardEvent) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-  }
-};
+import { checkStringIsNumber } from "./appHelper/checkStringIsNumber";
 
 const App = () => {
   const stateManager: DebounceInputHookType<string> = useDebounceInputHanlding(
@@ -31,13 +18,22 @@ const App = () => {
   const handleValueChange = stateManager.handleValueChange;
   const [inputControl, setInputControl] = useState<string>("");
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    let currInput: string = e.currentTarget.value;
-    if (checkStringIsNumber(currInput)) {
-      setInputControl(() => currInput);
-      handleValueChange(currInput);
+  const preventEnterKeyReload = React.useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
     }
-  };
+  }, []);
+
+  const handleChange = React.useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      let currInput: string = e.currentTarget.value;
+      if (checkStringIsNumber(currInput)) {
+        setInputControl(() => currInput);
+        handleValueChange(currInput);
+      }
+    },
+    [handleValueChange]
+  );
 
   return (
     <div className='app'>

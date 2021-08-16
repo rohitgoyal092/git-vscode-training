@@ -1,15 +1,6 @@
 import React from "react";
-import { DEBOUNCE_TIME_LIMIT } from "../constants/hooks/useDebounceInputHanlding";
-
-const debounce = (func: Function, timeout = DEBOUNCE_TIME_LIMIT) => {
-  let timer: ReturnType<typeof setTimeout>;
-  return (...args: any[]) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args as []);
-    }, timeout);
-  };
-};
+import { DEBOUNCE_TIME_LIMIT } from "../constants/useDebounceInputHanlding";
+import { debounce } from "../utils/debounce";
 
 export interface DebounceInputHookType<IdType> {
   id: IdType;
@@ -22,16 +13,17 @@ export const useDebounceInputHanlding = <InputType extends string | number>(
 ): DebounceInputHookType<InputType> => {
   const [input, setinput] = React.useState<InputType>(initialId);
   const [isTyping, setIsTyping] = React.useState<boolean>(false);
-  const handleInput = React.useState(() => {
-    return (waitingValue: InputType) => {
-      setinput(() => waitingValue);
-      setIsTyping(() => false);
-    };
-  })[0];
-  const handleInputDebounce = React.useState(() => debounce(handleInput))[0];
+  const handleInput = React.useCallback((waitingValue: InputType) => {
+    setinput(() => waitingValue);
+    setIsTyping(() => false);
+  }, []);
+  const handleInputDebounce = React.useCallback(
+    debounce(handleInput, DEBOUNCE_TIME_LIMIT),
+    []
+  );
 
-  const handleValueChange = React.useState(() => {
-    return (inputValue: InputType) => {
+  const handleValueChange = React.useCallback(
+    (inputValue: InputType) => {
       if (!inputValue) {
         handleInput(inputValue);
         handleInputDebounce(inputValue);
@@ -39,8 +31,9 @@ export const useDebounceInputHanlding = <InputType extends string | number>(
       }
       setIsTyping(true);
       handleInputDebounce(inputValue);
-    };
-  })[0];
+    },
+    [handleInput, handleInputDebounce]
+  );
 
   return {
     id: input,

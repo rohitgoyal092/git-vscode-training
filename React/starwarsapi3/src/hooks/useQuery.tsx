@@ -4,83 +4,22 @@ import {
   NETWORK_STATUS,
   ERROR_TYPES,
   RETRY_COUNT,
-  TIMEOUT_LIMIT,
-} from "../constants/hooks/useQuery";
-import { statusType } from "../constants/hooks/useQuery";
+} from "../constants/useQuery";
 
-export interface Error {
-  type: string;
-  message: string;
-}
-
-export interface FetchProps {
-  url: string;
-  n: number;
-  controller: AbortController;
-}
-
-const fetch_retry = ({
-  controller,
-  url,
-  n,
-  ...args
-}: FetchProps): Promise<Response | Error> => {
-  const signal: AbortSignal = controller.signal;
-  return fetch(url, { signal })
-    .then((response) => {
-      return Promise.resolve(response);
-    })
-    .catch(function (error) {
-      if (signal.aborted) {
-        return Promise.reject(error);
-      }
-      if (n === 1) {
-        return Promise.reject(error);
-      }
-      return fetch_retry({
-        url: url,
-        n: n - 1,
-        controller: controller,
-        ...args,
-      });
-    });
-};
-
-const fetch_timeout = ({
-  url,
-  n,
-  controller,
-  ...args
-}: FetchProps): Promise<Response | Error> => {
-  return new Promise((resolve, reject) => {
-    let myTimeout = setTimeout(() => {
-      controller.abort();
-      reject(Error("Error Code : 408. Exceeded Timeout Limit!"));
-    }, TIMEOUT_LIMIT);
-
-    fetch_retry({ controller: controller, url: url, n: n, ...args })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      })
-      .finally(() => {
-        clearTimeout(myTimeout);
-      });
-  });
-};
+import { statusType } from "../constants/useQuery";
+import { FetchError } from "../types/fetchData";
+import { fetchWithTimeoutRetry } from "../utils/fetchWithTimeoutRetry";
 
 export interface UseQueryStateType<DataType> {
   data: DataType | null;
-  error: Error | null;
+  error: FetchError | null;
   status: statusType;
 }
 
 export interface UseQueryReturnType<DataType> {
   data: DataType | null;
   loading: boolean;
-  error: Error | null;
+  error: FetchError | null;
 }
 
 export const useQuery = <DataType,>({
@@ -108,7 +47,7 @@ export const useQuery = <DataType,>({
         ...initialState,
         status: NETWORK_STATUS.FETCHING,
       }));
-      fetch_timeout({
+      fetchWithTimeoutRetry({
         url: url,
         n: RETRY_COUNT,
         controller: controller,
@@ -138,7 +77,7 @@ export const useQuery = <DataType,>({
             }
             return (response as Response).json();
           },
-          (error: Error) => {
+          (error: FetchError) => {
             if (!isRunning) {
               return;
             }
@@ -170,7 +109,7 @@ export const useQuery = <DataType,>({
             }
           }
         })
-        .catch((error: Error) => {
+        .catch((error: FetchError) => {
           if (isRunning) {
             setState(
               (
