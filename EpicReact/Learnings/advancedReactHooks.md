@@ -3,6 +3,7 @@
 - While lifting state comes naturally, colocating states when needed can also have performance improvements.(https://kentcdodds.com/blog/state-colocation-will-make-your-react-app-faster)
 <br/><br/>
  <h1>Managed and Derived State</h1>
+
 - Sometimes it's easier to derive state than manage same state or it's substates in different handlers.
 <br/><br/>
 <h1>useState</h1>
@@ -130,6 +131,7 @@ Summarizing, in course :
 - useLayout effect is used when we need to make some DOM measurements before making mutations or if we need to keep a value like that of 'ref' up-to-date.
 <br/><br/>
 <h1>useDebugValue</h1>
+
 - We can use it to label hooks.
 - We can pass a format function that executes only when react dev tools is opened.
 
