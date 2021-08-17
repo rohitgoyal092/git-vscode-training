@@ -121,19 +121,11 @@ body {
   color: var(--odd-child-color);
 }
 
-.no-border,
-.no-border-character {
+.no-border {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.no-border {
   width: 40%;
-}
-
-.no-border-character {
-  padding: 0 20%;
 }
 
 .messages {

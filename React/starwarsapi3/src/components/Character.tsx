@@ -1,16 +1,15 @@
 import { useQuery } from "../hooks/useQuery";
-import { CharacterMessageContent } from "./CharacterMessageContent";
 
 export const Character = ({ url }: { url: string }) => {
   const { data, loading, error } = useQuery<{ name: string }>({ url: url });
   if (error) {
-    return <CharacterMessageContent>{error.message}</CharacterMessageContent>;
+    return <>{error.message}</>;
   }
   if (loading) {
-    return <CharacterMessageContent>{`Retrieving...`}</CharacterMessageContent>;
+    return <>{`Retrieving...`}</>;
   }
   if (!data) {
-    return <CharacterMessageContent>{""}</CharacterMessageContent>;
+    return <>{""}</>;
   }
-  return <div className={`character`}>{data.name}</div>;
+  return <>{data.name}</>;
 };

@@ -19,7 +19,11 @@ export const Film = ({ filmId }: { filmId: string }) => {
   return (
     <ul className={`film`}>
       {data["characters"].map((characterUrl) => {
-        return <Character key={`${characterUrl}`} url={characterUrl} />;
+        return (
+          <li className='character' key={`${characterUrl}`}>
+            <Character url={characterUrl} />
+          </li>
+        );
       })}
     </ul>
   );

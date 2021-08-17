@@ -1,9 +1,11 @@
 import React, { Reducer } from "react";
+import { CacheContext, useDataContext } from "../App";
 
 import { NETWORK_STATUS, RETRY_COUNT } from "../constants/useQuery";
 
 import { statusType } from "../constants/useQuery";
 import { FetchError } from "../types/fetchData";
+import { generateSuccessfulParseJsonAction } from "../utils/fetchWithTimeoutRetry/actionGenerators";
 
 import { fetchWithTimeoutRetry } from "../utils/fetchWithTimeoutRetry/fetchWithTimeoutRetry";
 import { useFetchWithTimeoutRetry } from "./useFetchWithTimeoutRetry";
@@ -74,6 +76,7 @@ export const useQuery = <DataType,>({
   >(asyncReducer, {
     ...initialState,
   });
+  const dispatchContext: CacheContext = useDataContext();
 
   const dispatch = useSafeDispatch(unsafeDispatch);
   const run = useFetchWithTimeoutRetry(url, dispatch);
@@ -81,13 +84,19 @@ export const useQuery = <DataType,>({
   React.useLayoutEffect(() => {
     const controller: AbortController = new AbortController();
     if (url) {
-      run(
-        fetchWithTimeoutRetry({
-          url: url,
-          retryCount: RETRY_COUNT,
-          controller: controller,
-        })
-      );
+      if (dispatchContext.current[url]) {
+        dispatch(
+          generateSuccessfulParseJsonAction(dispatchContext.current[url])
+        );
+      } else {
+        run(
+          fetchWithTimeoutRetry({
+            url: url,
+            retryCount: RETRY_COUNT,
+            controller: controller,
+          })
+        );
+      }
     }
     return (): void => {
       controller.abort();

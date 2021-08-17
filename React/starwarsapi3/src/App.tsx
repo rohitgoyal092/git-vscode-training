@@ -9,6 +9,25 @@ import { Film } from "./components/Film";
 
 import { checkStringIsNumber } from "./utils/checkStringIsNumber";
 
+const DataContext = React.createContext({});
+
+export const DataProvider = ({ ...props }) => {
+  const cache = React.useRef({});
+  return <DataContext.Provider value={cache} {...props} />;
+};
+
+export interface CacheContext {
+  [key: string]: any;
+}
+
+export const useDataContext = (): CacheContext => {
+  const context = React.useContext(DataContext);
+  if (!context) {
+    throw new Error("DataContext must be used within a DataProvider!!");
+  }
+  return context;
+};
+
 const App = () => {
   const stateManager: DebounceInputHookType<string> = useDebounceInputHanlding(
     "" as string
@@ -45,13 +64,15 @@ const App = () => {
           onChange={handleChange}
         />
       </form>
-      {isTyping ? (
-        <WaitingState />
-      ) : filmId ? (
-        <Film filmId={filmId} />
-      ) : (
-        <EmptyState />
-      )}
+      <DataProvider>
+        {isTyping ? (
+          <WaitingState />
+        ) : filmId ? (
+          <Film filmId={filmId} />
+        ) : (
+          <EmptyState />
+        )}
+      </DataProvider>
     </div>
   );
 };

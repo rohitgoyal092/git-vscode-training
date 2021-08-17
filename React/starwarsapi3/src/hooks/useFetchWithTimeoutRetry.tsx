@@ -1,4 +1,5 @@
 import React from "react";
+import { CacheContext, useDataContext } from "../App";
 import { FetchError } from "../types/fetchData";
 import {
   generateNetworkErrorAction,
@@ -12,6 +13,7 @@ export const useFetchWithTimeoutRetry = <DataType,>(
   url: string,
   dispatch: Function
 ): ((promise: Promise<Response | FetchError>) => void) => {
+  const dispatchContext: CacheContext = useDataContext();
   const run = React.useCallback(
     (promise: Promise<Response | FetchError>): void => {
       let errorEncountered: boolean = false;
@@ -36,6 +38,7 @@ export const useFetchWithTimeoutRetry = <DataType,>(
         )
         .then((response: DataType) => {
           if (!errorEncountered) {
+            dispatchContext.current[url] = response;
             dispatch(generateSuccessfulParseJsonAction(response));
           }
         })
@@ -43,7 +46,7 @@ export const useFetchWithTimeoutRetry = <DataType,>(
           dispatch(generateParsingErrorAction(error));
         });
     },
-    [dispatch, url]
+    [dispatch, url, dispatchContext]
   );
   return run;
 };
