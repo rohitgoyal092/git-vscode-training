@@ -5,8 +5,18 @@
  <h1>Managed and Derived State</h1>
 
 - Sometimes it's easier to derive state than manage same state or it's substates in different handlers.
+  <br/><br/>
+
+<h1>ErrorBoundary</h1>
+
+- (https://github.com/bvaughn/react-error-boundary/blob/master/README.md)
+- ErrorBoundary has 'resetKeys' prop to reset on prop change without re-mounting children.
+- We can use key attribute with a customized value that can help us mimim resetKeys in custom error boundary or even in react-error-boundary.
+- We can define 'FallbackComponent' prop with value equal to the fallback function (args : {error, resetErrorBoundary}) to provide onClick reset handlers and provide fallback UI.
+- We can define 'onReset' to do an action post reset.
+- For class component custom Error Boundary, we need to define 'componentDidCatch'(renders after painting, mainly for logging purposes) or 'getDerivedStateFromError' (renders before painting, mainly to define fallback UI).
 <br/><br/>
-<h1>useState</h1>
+  <h1>useState</h1>
 
 - Returns a pair of values [state, setState function].
 - We can use lazy initialization, so that any useless expensive computation is not done on re-render by providing a function as argument to the useState hook.
