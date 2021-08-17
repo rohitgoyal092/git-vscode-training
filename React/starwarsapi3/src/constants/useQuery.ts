@@ -7,6 +7,7 @@ function makeStatusType(value: string): statusType {
 export const NETWORK_STATUS = {
   IDLE: makeStatusType("idle"),
   FETCHING: makeStatusType("fetching"),
+  FETCHED: makeStatusType("fetched"),
   ERROR: makeStatusType("error"),
 };
 

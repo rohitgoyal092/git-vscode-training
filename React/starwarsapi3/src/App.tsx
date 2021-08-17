@@ -7,7 +7,7 @@ import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
 import { Film } from "./components/Film";
 
-import { checkStringIsNumber } from "./appHelper/checkStringIsNumber";
+import { checkStringIsNumber } from "./utils/checkStringIsNumber";
 
 const App = () => {
   const stateManager: DebounceInputHookType<string> = useDebounceInputHanlding(

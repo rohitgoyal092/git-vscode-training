@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Reducer } from "react";
 
-import {
-  NETWORK_STATUS,
-  ERROR_TYPES,
-  RETRY_COUNT,
-} from "../constants/useQuery";
+import { NETWORK_STATUS, RETRY_COUNT } from "../constants/useQuery";
 
 import { statusType } from "../constants/useQuery";
 import { FetchError } from "../types/fetchData";
-import { fetchWithTimeoutRetry } from "../utils/fetchWithTimeoutRetry";
+
+import { fetchWithTimeoutRetry } from "../utils/fetchWithTimeoutRetry/fetchWithTimeoutRetry";
+import { useFetchWithTimeoutRetry } from "./useFetchWithTimeoutRetry";
+import { useSafeDispatch } from "./useSafeDispatch";
 
 export interface UseQueryStateType<DataType> {
   data: DataType | null;
@@ -22,6 +21,42 @@ export interface UseQueryReturnType<DataType> {
   error: FetchError | null;
 }
 
+export interface UseQueryActionType<DataType> {
+  type: statusType;
+  data?: DataType | null;
+  error?: FetchError | null;
+}
+
+const asyncReducer = <DataType,>(
+  prevState: UseQueryStateType<DataType>,
+  action: UseQueryActionType<DataType>
+): UseQueryStateType<DataType> => {
+  if (action.type === NETWORK_STATUS.IDLE) {
+    return {
+      ...prevState,
+      status: NETWORK_STATUS.IDLE,
+      data: action.data || null,
+      error: null,
+    };
+  } else if (action.type === NETWORK_STATUS.FETCHING) {
+    return {
+      ...prevState,
+      status: NETWORK_STATUS.FETCHING,
+      data: null,
+      error: null,
+    };
+  } else if (action.type === NETWORK_STATUS.ERROR) {
+    return {
+      ...prevState,
+      status: NETWORK_STATUS.ERROR,
+      data: null,
+      error: action.error || null,
+    };
+  } else {
+    throw new Error("Unhandled action type!");
+  }
+};
+
 export const useQuery = <DataType,>({
   url,
   ...props
@@ -34,100 +69,27 @@ export const useQuery = <DataType,>({
     status: NETWORK_STATUS.IDLE,
   };
 
-  const [state, setState] = React.useState<UseQueryStateType<DataType>>({
+  const [state, unsafeDispatch] = React.useReducer<
+    Reducer<UseQueryStateType<DataType>, UseQueryActionType<DataType>>
+  >(asyncReducer, {
     ...initialState,
   });
 
+  const dispatch = useSafeDispatch(unsafeDispatch);
+  const run = useFetchWithTimeoutRetry(url, dispatch);
+
   React.useLayoutEffect(() => {
     const controller: AbortController = new AbortController();
-    let isRunning: boolean = true;
-    let errorEncountered: boolean = false;
     if (url) {
-      setState((prevState: UseQueryStateType<DataType>) => ({
-        ...initialState,
-        status: NETWORK_STATUS.FETCHING,
-      }));
-      fetchWithTimeoutRetry({
-        url: url,
-        n: RETRY_COUNT,
-        controller: controller,
-      })
-        .then(
-          (response) => {
-            if (!isRunning) {
-              return;
-            }
-            if (!(response as Response).ok) {
-              errorEncountered = true;
-              setState(
-                (
-                  prevState: UseQueryStateType<DataType>
-                ): UseQueryStateType<DataType> => ({
-                  ...prevState,
-                  status: NETWORK_STATUS.ERROR,
-                  error: {
-                    type: ERROR_TYPES.URL_ERROR,
-                    message: `Error hitting the url : "${url}". ErrorCode ${
-                      (response as Response).status
-                    }`,
-                  },
-                })
-              );
-              return Promise.resolve();
-            }
-            return (response as Response).json();
-          },
-          (error: FetchError) => {
-            if (!isRunning) {
-              return;
-            }
-            errorEncountered = true;
-            setState(
-              (
-                prevState: UseQueryStateType<DataType>
-              ): UseQueryStateType<DataType> => ({
-                ...prevState,
-                status: NETWORK_STATUS.ERROR,
-                error: {
-                  type: ERROR_TYPES.NETWORK_ERROR,
-                  message: `Network Error : ${error.message}`,
-                },
-              })
-            );
-          }
-        )
-        .then((response: DataType) => {
-          if (isRunning) {
-            if (!errorEncountered) {
-              setState(
-                (prevState): UseQueryStateType<DataType> => ({
-                  ...prevState,
-                  data: response,
-                  status: NETWORK_STATUS.IDLE,
-                })
-              );
-            }
-          }
+      run(
+        fetchWithTimeoutRetry({
+          url: url,
+          retryCount: RETRY_COUNT,
+          controller: controller,
         })
-        .catch((error: FetchError) => {
-          if (isRunning) {
-            setState(
-              (
-                prevState: UseQueryStateType<DataType>
-              ): UseQueryStateType<DataType> => ({
-                ...prevState,
-                status: NETWORK_STATUS.ERROR,
-                error: {
-                  type: ERROR_TYPES.DATA_ERROR,
-                  message: `Parsing Error : Could not understand what was returned : ${error.message}`,
-                },
-              })
-            );
-          }
-        });
+      );
     }
     return (): void => {
-      isRunning = false;
       controller.abort();
     };
   }, [url]);

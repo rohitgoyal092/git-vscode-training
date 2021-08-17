@@ -5,6 +5,6 @@ export interface FetchError {
 
 export interface FetchProps {
   url: string;
-  n: number;
+  retryCount: number;
   controller: AbortController;
 }

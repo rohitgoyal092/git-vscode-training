@@ -1,10 +1,9 @@
-import { FetchError, FetchProps } from "../types/fetchData";
+import { FetchError, FetchProps } from "../../types/fetchData";
 
 export const fetchRetry = ({
   controller,
   url,
-  n,
-  ...args
+  retryCount,
 }: FetchProps): Promise<Response | FetchError> => {
   const signal: AbortSignal = controller.signal;
   return fetch(url, { signal })
@@ -15,14 +14,13 @@ export const fetchRetry = ({
       if (signal.aborted) {
         return Promise.reject(error);
       }
-      if (n === 1) {
+      if (retryCount === 1) {
         return Promise.reject(error);
       }
       return fetchRetry({
         url: url,
-        n: n - 1,
+        retryCount: retryCount - 1,
         controller: controller,
-        ...args,
       });
     });
 };

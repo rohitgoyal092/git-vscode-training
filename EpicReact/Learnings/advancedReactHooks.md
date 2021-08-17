@@ -32,3 +32,61 @@ We essentially do the following 4 things in the course :
 - Now to remove the 'dependencies' array as an argument, we can memoize the callback or the async function to change only when a different fetch request arrives. Then we can pass the async callback as the dependency to the useEffect part of the 'useAsync' hook.
 - Further, we can't depend on user to provide us with a memoized async function, so we subtend the async functionality through a 'run' function which handles the state based on promise status.
 - Finally, in case of cancelled requests, we would not want 'dispatch' function to be called as promise resolves or rejects. So we get a 'safeDispatch' memoized function which manages a useRef boolean value to denote if the hook has unmounted.
+
+<h1>useContext</h1>
+ - We can use useContext inside functional components and createContext inside class components, not in any other way.
+ - We can avoid prop drilling with useContext, by making a global state.
+ - We could use the context with a Provider component :
+
+```
+function CountProvider(props) {
+  const [count, setCount] = React.useState(0)
+  const value = [count, setCount]
+  // could also do it like this:
+  // const value = React.useState(0)
+  return <CountContext.Provider value={value} {...props} />
+}
+
+```
+
+- We should also use a Consumer hook to allow usage of context value inside a provider ancestor only :
+
+```
+function useCount() {
+  const context = React.useContext(CountContext)
+  if (!context) {
+    throw new Error('useCount must be used within a CountProvider')
+  }
+  return context
+}
+```
+
+- We can also use context to provide a cache down the React DOM tree, as down in the course exercise 2.
+
+Summarizing, in course :
+
+1. We created a Provider component to provide context value down the tree.
+2. We created a Consumer hook to provide context value only if it's accesed with a Provider ancestor.
+3. Used useContext to pass a cache down the DOM tree.
+
+<h1>useEffect vs useLayoutEffect</h1>
+ - useEffect runs after the screen is painted
+ - useLayoutEffect runs before the screen is painted
+ (https://kentcdodds.com/blog/useeffect-vs-uselayouteffect)
+ - useLayout effect is used when we need to make some DOM measurements before making mutations or if we need to keep a value like that of 'ref' up-to-date.
+
+<h1>useDebugValue</h1>
+ - We can use it to label hooks.
+ - We can pass a format function that executes only when react dev tools is opened.
+
+```
+const formatCountDebugValue = ({initialCount, step}) =>
+  `init: ${initialCount}; step: ${step}`
+
+function useCount({initialCount = 0, step = 1} = {}) {
+  React.useDebugValue({initialCount, step}, formatCountDebugValue)
+  const [count, setCount] = React.useState(0)
+  const increment = () => setCount(c => c + step)
+  return [count, increment]
+}
+```

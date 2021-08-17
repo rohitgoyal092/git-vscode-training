@@ -1,13 +1,12 @@
-import { TIMEOUT_LIMIT } from "../constants/useQuery";
+import { TIMEOUT_LIMIT } from "../../constants/useQuery";
 
-import { FetchError, FetchProps } from "../types/fetchData";
+import { FetchError, FetchProps } from "../../types/fetchData";
 import { fetchRetry } from "./fetchRetry";
 
 export const fetchWithTimeoutRetry = ({
   url,
-  n,
+  retryCount,
   controller,
-  ...args
 }: FetchProps): Promise<Response | FetchError> => {
   return new Promise((resolve, reject) => {
     let myTimeout = setTimeout(() => {
@@ -15,7 +14,11 @@ export const fetchWithTimeoutRetry = ({
       reject(Error("Error Code : 408. Exceeded Timeout Limit!"));
     }, TIMEOUT_LIMIT);
 
-    fetchRetry({ controller: controller, url: url, n: n, ...args })
+    fetchRetry({
+      controller: controller,
+      url: url,
+      retryCount: retryCount,
+    })
       .then((response) => {
         resolve(response);
       })
