@@ -1,5 +1,6 @@
 import React from "react";
-import { CacheContext, useDataContext } from "../App";
+import { useDataContext } from "../App";
+import { CacheContext } from "../types/fetchData";
 import { FetchError } from "../types/fetchData";
 import {
   generateNetworkErrorAction,

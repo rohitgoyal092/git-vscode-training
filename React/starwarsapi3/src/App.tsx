@@ -6,6 +6,7 @@ import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
 import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
 import { Film } from "./components/Film";
+import { CacheContext } from "./types/fetchData";
 
 import { checkStringIsNumber } from "./utils/checkStringIsNumber";
 
@@ -15,10 +16,6 @@ export const DataProvider = ({ ...props }) => {
   const cache = React.useRef({});
   return <DataContext.Provider value={cache} {...props} />;
 };
-
-export interface CacheContext {
-  [key: string]: any;
-}
 
 export const useDataContext = (): CacheContext => {
   const context = React.useContext(DataContext);

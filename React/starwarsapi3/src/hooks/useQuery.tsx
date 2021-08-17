@@ -1,5 +1,6 @@
 import React, { Reducer } from "react";
-import { CacheContext, useDataContext } from "../App";
+import { useDataContext } from "../App";
+import { CacheContext } from "../types/fetchData";
 
 import { NETWORK_STATUS, RETRY_COUNT } from "../constants/useQuery";
 
