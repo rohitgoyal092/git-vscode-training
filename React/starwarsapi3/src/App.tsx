@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { DebounceInputHookType } from "./hooks/useDebounceInputHanlding";
 import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
@@ -6,9 +7,10 @@ import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
 import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
 import { Film } from "./components/Film";
-import { CacheContext } from "./types/fetchData";
+import { CacheContext } from "./types/cacheContext";
 
 import { checkStringIsNumber } from "./utils/checkStringIsNumber";
+import { FilmErrorBoundaryFallbackComponent } from "./components/FilmFallbackComponent";
 
 const DataContext = React.createContext({});
 
@@ -61,15 +63,20 @@ const App = () => {
           onChange={handleChange}
         />
       </form>
-      <DataProvider>
-        {isTyping ? (
-          <WaitingState />
-        ) : filmId ? (
-          <Film filmId={filmId} />
-        ) : (
-          <EmptyState />
-        )}
-      </DataProvider>
+      <ErrorBoundary
+        FallbackComponent={FilmErrorBoundaryFallbackComponent}
+        resetKeys={[filmId]}
+      >
+        <DataProvider>
+          {isTyping ? (
+            <WaitingState />
+          ) : filmId ? (
+            <Film filmId={filmId} />
+          ) : (
+            <EmptyState />
+          )}
+        </DataProvider>
+      </ErrorBoundary>
     </div>
   );
 };

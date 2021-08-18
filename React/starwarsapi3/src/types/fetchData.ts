@@ -8,7 +8,3 @@ export interface FetchProps {
   retryCount: number;
   controller: AbortController;
 }
-
-export interface CacheContext {
-  [key: string]: any;
-}

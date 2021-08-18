@@ -1,6 +1,6 @@
 import React, { Reducer } from "react";
 import { useDataContext } from "../App";
-import { CacheContext } from "../types/fetchData";
+import { CacheContext } from "../types/cacheContext";
 
 import { NETWORK_STATUS, RETRY_COUNT } from "../constants/useQuery";
 
@@ -102,7 +102,7 @@ export const useQuery = <DataType,>({
     return (): void => {
       controller.abort();
     };
-  }, [url]);
+  }, [url, dispatch, dispatchContext, run]);
   return {
     data: state.data,
     loading: state.status === NETWORK_STATUS.FETCHING,
