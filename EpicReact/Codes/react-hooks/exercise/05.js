@@ -1,13 +1,28 @@
 // useRef and useEffect: DOM interaction
 // http://localhost:3000/isolated/exercise/05.js
 
-import * as React from 'react'
+import * as React from "react";
 // eslint-disable-next-line no-unused-vars
-import VanillaTilt from 'vanilla-tilt'
+import VanillaTilt from "vanilla-tilt";
 
-function Tilt({children}) {
+function Tilt({ children }) {
   // 🐨 create a ref here with React.useRef()
 
+  const tiltRef = React.useRef();
+
+  React.useEffect(() => {
+    const currentNode = tiltRef.current;
+    VanillaTilt.init(currentNode, {
+      max: 40,
+      speed: 1000,
+      glare: true,
+      "max-glare": 0.5,
+    });
+
+    return () => {
+      currentNode.vanillaTilt.destroy();
+    };
+  }, []);
   // 🐨 add a `React.useEffect` callback here and use VanillaTilt to make your
   // div look fancy.
   // 💰 like this:
@@ -29,18 +44,18 @@ function Tilt({children}) {
 
   // 🐨 add the `ref` prop to the `tilt-root` div here:
   return (
-    <div className="tilt-root">
-      <div className="tilt-child">{children}</div>
+    <div className='tilt-root' ref={tiltRef}>
+      <div className='tilt-child'>{children}</div>
     </div>
-  )
+  );
 }
 
 function App() {
   return (
     <Tilt>
-      <div className="totally-centered">vanilla-tilt.js</div>
+      <div className='totally-centered'>vanilla-tilt.js</div>
     </Tilt>
-  )
+  );
 }
 
-export default App
+export default App;
