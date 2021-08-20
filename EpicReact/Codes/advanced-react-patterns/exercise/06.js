@@ -1,33 +1,68 @@
 // Control Props
 // http://localhost:3000/isolated/exercise/06.js
 
-import * as React from 'react'
-import {Switch} from '../switch'
-import warning from 'warning'
+import * as React from "react";
+import { Switch } from "../switch";
+import warning from "warning";
 
 const callAll =
   (...fns) =>
   (...args) =>
-    fns.forEach(fn => fn?.(...args))
+    fns.forEach((fn) => fn?.(...args));
 
 const actionTypes = {
-  toggle: 'toggle',
-  reset: 'reset',
-}
+  toggle: "toggle",
+  reset: "reset",
+};
 
-function toggleReducer(state, {type, initialState}) {
+function toggleReducer(state, { type, initialState }) {
   switch (type) {
     case actionTypes.toggle: {
-      return {on: !state.on}
+      return { on: !state.on };
     }
     case actionTypes.reset: {
-      return initialState
+      return initialState;
     }
     default: {
-      throw new Error(`Unsupported type: ${type}`)
+      throw new Error(`Unsupported type: ${type}`);
     }
   }
 }
+
+const useControlledSwitchWarning = (
+  controlPropValue,
+  componentName,
+  controlPropName
+) => {
+  const isControlled = controlPropValue != null;
+  const { current: wasControlled } = React.useRef(isControlled);
+  React.useEffect(() => {
+    warning(
+      !(!wasControlled && isControlled),
+      `Warning : ${componentName} was uncontrolled before and controlled now. Check the ${controlPropName}`
+    );
+    warning(
+      !(wasControlled && !isControlled),
+      `Warning : ${componentName} was controlled before and uncontrolled now. Check the ${controlPropName}`
+    );
+  }, [isControlled, wasControlled, componentName, controlPropName]);
+};
+const useOnChangeReadOnlyWarning = (
+  controlProp,
+  onChange,
+  componentName,
+  controlPropName,
+  readOnly
+) => {
+  const hasOnChange = Boolean(onChange);
+  const isControlled = controlProp != null;
+  React.useEffect(() => {
+    warning(
+      !(isControlled && !hasOnChange && !readOnly),
+      `Warning: Provided value prop : ${controlPropName} of component ${componentName} without onChange or readOnly prop. Consider adding one of those!`
+    );
+  }, [componentName, controlPropName, hasOnChange, isControlled, readOnly]);
+};
 
 function useToggle({
   initialOn = false,
@@ -39,29 +74,42 @@ function useToggle({
   // 🐨 add an `on` option here
   // 💰 you can alias it to `controlledOn` to avoid "variable shadowing."
 } = {}) {
-  const {current: initialState} = React.useRef({on: initialOn})
-  const [state, dispatch] = React.useReducer(reducer, initialState)
+  const { current: initialState } = React.useRef({ on: initialOn });
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   // 🐨 determine whether on is controlled and assign that to `onIsControlled`
   // 💰 `controlledOn != null`
-  const onIsControlled = controlledOn != null
+  const onIsControlled = controlledOn != null;
+  if (process.env.NODE_ENV !== "production") {
+    //
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useControlledSwitchWarning(controlledOn, "useToggle", "on");
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useOnChangeReadOnlyWarning(
+      controlledOn,
+      onChange,
+      "useToggle",
+      "on",
+      readOnly
+    );
+  }
   // 🐨 Replace the next line with assigning `on` to `controlledOn` if
   // `onIsControlled`, otherwise, it should be `state.on`.
-  const on = onIsControlled ? controlledOn : state.on
+  const on = onIsControlled ? controlledOn : state.on;
 
-  const hasOnChange = Boolean(onChange)
+  const hasOnChange = Boolean(onChange);
   React.useEffect(() => {
     warning(
       !(onIsControlled && !hasOnChange && !readOnly),
-      'Warning: Failed prop type: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.',
-    )
-  }, [hasOnChange, onIsControlled, readOnly])
+      "Warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`."
+    );
+  }, [hasOnChange, onIsControlled, readOnly]);
 
-  const dispatchWithOnChange = action => {
+  const dispatchWithOnChange = (action) => {
     if (!onIsControlled) {
-      dispatch(action)
+      dispatch(action);
     }
-    onChange?.(reducer({...state, on}, action), action)
-  }
+    onChange?.(reducer({ ...state, on }, action), action);
+  };
 
   // We want to call `onChange` any time we need to make a state change, but we
   // only want to call `dispatch` if `!onIsControlled` (otherwise we could get
@@ -88,23 +136,23 @@ function useToggle({
   // so keep that in mind when you call it! How could you avoid calling it if it's not passed?
 
   // make these call `dispatchWithOnChange` instead
-  const toggle = () => dispatchWithOnChange({type: actionTypes.toggle})
+  const toggle = () => dispatchWithOnChange({ type: actionTypes.toggle });
   const reset = () =>
-    dispatchWithOnChange({type: actionTypes.reset, initialState})
+    dispatchWithOnChange({ type: actionTypes.reset, initialState });
 
-  function getTogglerProps({onClick, ...props} = {}) {
+  function getTogglerProps({ onClick, ...props } = {}) {
     return {
-      'aria-pressed': on,
+      "aria-pressed": on,
       onClick: callAll(onClick, toggle),
       ...props,
-    }
+    };
   }
 
-  function getResetterProps({onClick, ...props} = {}) {
+  function getResetterProps({ onClick, ...props } = {}) {
     return {
       onClick: callAll(onClick, reset),
       ...props,
-    }
+    };
   }
 
   return {
@@ -113,34 +161,34 @@ function useToggle({
     toggle,
     getTogglerProps,
     getResetterProps,
-  }
+  };
 }
 
-function Toggle({on: controlledOn, onChange, readOnly}) {
-  const {on, getTogglerProps} = useToggle({
+function Toggle({ on: controlledOn, onChange, readOnly }) {
+  const { on, getTogglerProps } = useToggle({
     on: controlledOn,
     onChange,
     readOnly,
-  })
-  const props = getTogglerProps({on})
-  return <Switch {...props} />
+  });
+  const props = getTogglerProps({ on });
+  return <Switch {...props} />;
 }
 
 function App() {
-  const [bothOn, setBothOn] = React.useState(false)
-  const [timesClicked, setTimesClicked] = React.useState(0)
+  const [bothOn, setBothOn] = React.useState(false);
+  const [timesClicked, setTimesClicked] = React.useState(0);
 
   function handleToggleChange(state, action) {
     if (action.type === actionTypes.toggle && timesClicked > 4) {
-      return
+      return;
     }
-    setBothOn(state.on)
-    setTimesClicked(c => c + 1)
+    setBothOn(state.on);
+    setTimesClicked((c) => c + 1);
   }
 
   function handleResetClick() {
-    setBothOn(false)
-    setTimesClicked(0)
+    setBothOn(false);
+    setTimesClicked(0);
   }
 
   return (
@@ -150,12 +198,12 @@ function App() {
         <Toggle on={bothOn} onChange={handleToggleChange} />
       </div>
       {timesClicked > 4 ? (
-        <div data-testid="notice">
+        <div data-testid='notice'>
           Whoa, you clicked too much!
           <br />
         </div>
       ) : (
-        <div data-testid="click-count">Click count: {timesClicked}</div>
+        <div data-testid='click-count'>Click count: {timesClicked}</div>
       )}
       <button onClick={handleResetClick}>Reset</button>
       <hr />
@@ -163,17 +211,17 @@ function App() {
         <div>Uncontrolled Toggle:</div>
         <Toggle
           onChange={(...args) =>
-            console.info('Uncontrolled Toggle onChange', ...args)
+            console.info("Uncontrolled Toggle onChange", ...args)
           }
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
 // we're adding the Toggle export for tests
-export {Toggle}
+export { Toggle };
 
 /*
 eslint
