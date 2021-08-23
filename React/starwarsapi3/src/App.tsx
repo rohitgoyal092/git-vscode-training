@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { DebounceInputHookType } from "./hooks/useDebounceInputHanlding";
-import { useDebounceInputHanlding } from "./hooks/useDebounceInputHanlding";
+import { DebounceInputHookType } from "./hooks/useDebounceInputHandling";
+import { useDebounceInputHandling } from "./hooks/useDebounceInputHandling";
 
 import { WaitingState } from "./components/WaitingState";
 import { EmptyState } from "./components/EmptyState";
@@ -28,7 +28,7 @@ export const useDataContext = (): CacheContext => {
 };
 
 const App = () => {
-  const stateManager: DebounceInputHookType<string> = useDebounceInputHanlding(
+  const stateManager: DebounceInputHookType<string> = useDebounceInputHandling(
     "" as string
   );
   const filmId = stateManager.id;

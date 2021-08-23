@@ -1,23 +1,61 @@
 // Context Module Functions
 // http://localhost:3000/isolated/exercise/01.js
 
-import * as React from "react";
-import { dequal } from "dequal";
+import * as React from "../../../advanced-react-patterns/node_modules/@types/react";
+import { dequal } from "../../../advanced-react-patterns/node_modules/dequal";
 
 // ./context/user-context.js
 
-import * as userClient from "../user-client";
-import { useAuth } from "../auth-context";
+import * as userClient from "../../../advanced-react-patterns/src/user-client";
+import { useAuth } from "../../../advanced-react-patterns/src/auth-context";
 
-const UserContext = React.createContext();
+interface Actions {
+  "start update": {
+    updates: any;
+  };
+  "finish update": {
+    updatedUser: any;
+  };
+  "fail update": {
+    error: Error;
+  };
+  reset: {};
+}
+
+interface Statuses {
+  pending: any;
+  resolved: any;
+  rejected: any;
+}
+
+interface StateType {
+  status: keyof Statuses;
+  error: Error | null;
+  storedUser: any;
+  user: any;
+}
+
+type ActionType<T extends keyof Actions> = { type: T } & Actions[T];
+type ActionType1 =
+  | ActionType<"start update">
+  | ActionType<"finish update">
+  | ActionType<"fail update">
+  | ActionType<"reset">;
+
+type ContextType = undefined | [StateType, React.Dispatch<ActionType1>];
+
+const UserContext = React.createContext<ContextType>(undefined);
 UserContext.displayName = "UserContext";
 
-function userReducer(state, action) {
+function userReducer(state: StateType, action: ActionType1): StateType {
   switch (action.type) {
     case "start update": {
       return {
         ...state,
-        user: { ...state.user, ...action.updates },
+        user: {
+          ...state.user,
+          ...action.updates,
+        },
         status: "pending",
         storedUser: state.user,
       };
@@ -48,24 +86,26 @@ function userReducer(state, action) {
       };
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type!`);
     }
   }
 }
 
-function UserProvider({ children }) {
+function UserProvider({ children }): JSX.Element {
   const { user } = useAuth();
-  const [state, dispatch] = React.useReducer(userReducer, {
+  const [state, dispatch] = React.useReducer<
+    React.Reducer<StateType, ActionType1>
+  >(userReducer, {
     status: null,
     error: null,
     storedUser: user,
     user,
   });
-  const value = [state, dispatch];
+  const value: [StateType, React.Dispatch<any>] = [state, dispatch];
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-function useUser() {
+function useUser(): [StateType, React.Dispatch<ActionType1>] {
   const context = React.useContext(UserContext);
   if (context === undefined) {
     throw new Error(`useUser must be used within a UserProvider`);
@@ -73,7 +113,11 @@ function useUser() {
   return context;
 }
 
-const updateUser = (dispatch, user, updates) => {
+const updateUser = (
+  dispatch: React.Dispatch<ActionType1>,
+  user: any,
+  updates: any
+) => {
   dispatch({ type: "start update", updates });
   return userClient.updateUser(user, updates).then(
     (updatedUser) => dispatch({ type: "finish update", updatedUser }),
@@ -89,15 +133,15 @@ const updateUser = (dispatch, user, updates) => {
 
 // src/screens/user-profile.js
 // import {UserProvider, useUser} from './context/user-context'
-function UserSettings() {
+function UserSettings(): JSX.Element {
   const [{ user, status, error }, userDispatch] = useUser();
 
-  const isPending = status === "pending";
-  const isRejected = status === "rejected";
+  const isPending: boolean = status === "pending";
+  const isRejected: boolean = status === "rejected";
 
   const [formState, setFormState] = React.useState(user);
 
-  const isChanged = !dequal(user, formState);
+  const isChanged: boolean = !dequal(user, formState);
 
   function handleChange(e) {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -184,12 +228,12 @@ function UserSettings() {
   );
 }
 
-function UserDataDisplay() {
+function UserDataDisplay(): JSX.Element {
   const [{ user }] = useUser();
   return <pre>{JSON.stringify(user, null, 2)}</pre>;
 }
 
-function App() {
+function App(): JSX.Element {
   return (
     <div
       style={{
@@ -208,4 +252,4 @@ function App() {
   );
 }
 
-export default App;
+// export default App

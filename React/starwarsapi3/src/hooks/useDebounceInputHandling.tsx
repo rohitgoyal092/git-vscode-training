@@ -1,5 +1,5 @@
 import React from "react";
-import { DEBOUNCE_TIME_LIMIT } from "../constants/useDebounceInputHanlding";
+import { DEBOUNCE_TIME_LIMIT } from "../constants/useDebounceInputHandling";
 import { debounce } from "../utils/debounce";
 
 export interface DebounceInputHookType<IdType> {
@@ -8,7 +8,7 @@ export interface DebounceInputHookType<IdType> {
   handleValueChange: (arg: IdType) => any;
 }
 
-export const useDebounceInputHanlding = <InputType extends string | number>(
+export const useDebounceInputHandling = <InputType extends string | number>(
   initialId: InputType
 ): DebounceInputHookType<InputType> => {
   const [input, setinput] = React.useState<InputType>(initialId);
