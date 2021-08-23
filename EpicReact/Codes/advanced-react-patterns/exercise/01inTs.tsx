@@ -117,7 +117,7 @@ const updateUser = (
   dispatch: React.Dispatch<ActionType1>,
   user: any,
   updates: any
-) => {
+): Promise<any> => {
   dispatch({ type: "start update", updates });
   return userClient.updateUser(user, updates).then(
     (updatedUser) => dispatch({ type: "finish update", updatedUser }),
@@ -143,11 +143,15 @@ function UserSettings(): JSX.Element {
 
   const isChanged: boolean = !dequal(user, formState);
 
-  function handleChange(e) {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  function handleChange(e: React.SyntheticEvent): void {
+    const target = e.target as typeof e.target & {
+      name: string;
+      value: any;
+    };
+    setFormState({ ...formState, [target.name]: target.value });
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.SyntheticEvent): void {
     event.preventDefault();
     // 🐨 move the following logic to the `updateUser` function you create above
     // userDispatch({type: 'start update', updates: formState})
