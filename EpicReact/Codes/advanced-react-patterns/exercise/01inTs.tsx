@@ -101,7 +101,7 @@ function UserProvider({ children }): JSX.Element {
     storedUser: user,
     user,
   });
-  const value: [StateType, React.Dispatch<any>] = [state, dispatch];
+  const value: [StateType, React.Dispatch<ActionType1>] = [state, dispatch];
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
@@ -134,7 +134,10 @@ const updateUser = (
 // src/screens/user-profile.js
 // import {UserProvider, useUser} from './context/user-context'
 function UserSettings(): JSX.Element {
-  const [{ user, status, error }, userDispatch] = useUser();
+  const [{ user, status, error }, userDispatch]: [
+    StateType,
+    React.Dispatch<ActionType1>
+  ] = useUser();
 
   const isPending: boolean = status === "pending";
   const isRejected: boolean = status === "rejected";
