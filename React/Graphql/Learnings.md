@@ -1,7 +1,7 @@
 <h1>GraphQL</h1>
 
 - To practice, go here : https://rickandmortyapi.com/graphql
-<br><br>
+<br/><br/>
 <h2>Why Graphql:</h2>
 
 - https://graphql.org/faq/#does-graphql-replace-rest
@@ -18,7 +18,7 @@
 - Mutations and queries are different in way that mutation helps modify data present at the server and also returns the same in the same request.
 - While query fields are executed in parallel, mutation fields run in series, one after the other.
 - We use Apollo client to manage server side data, whereas redux is mainly meant for local storage state management.
-
+<br/><br/>
 <h3>Reasons GraphQL is bad</h3>
 
 - https://blog.logrocket.com/why-you-shouldnt-use-graphql/#1
@@ -29,7 +29,7 @@
 
 - (Unexplored) GraphQL code-first vs schema-first approaches
 
-<br><br>
+<br/><br/>
 
 <h3>Types in GraphQL</h3>
 
@@ -55,7 +55,7 @@ enum Episode {
 - Union types - Generally used with inline fragments. Common inherited interfaces can also be extracted once while writing query. We can't do union of interfaces or unions themselves. We do union on object types only.
 - Input type - To pass an object as an argument (generally for mutation).
 
-<br><br>
+<br/><br/>
 
 <h2>Query vs Mutation vs Subscription :</h2>
 
@@ -64,7 +64,7 @@ enum Episode {
 - While we use queries to fetch data, we use mutations to modify server-side data.
 - query could be batched or not batched - https://www.apollographql.com/blog/apollo-client/performance/batching-client-graphql-queries/
 
-<br><br>
+<br/><br/>
 
 We can write queries like :
 
@@ -100,7 +100,7 @@ results {
     }
 ```
 
-<br><br>
+<br/><br/>
 
 <h2>Mutations</h2>
 
