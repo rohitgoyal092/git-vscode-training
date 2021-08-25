@@ -241,7 +241,9 @@ export default function Pets() {
 
 ```
 
-<h2>Ways to keep mutation in sync with cache : </h3>
+<br/><br/>
+
+<h2>Ways to keep mutation in sync with cache : </h2>
 
 - https://www.apollographql.com/docs/react/data/mutations/
 
@@ -321,6 +323,8 @@ export default client;
 
 ```
 
+<br/><br/>
+
 <h2>Local State Management using GraphQL</h2>
 
 - We define schema for defining local state, and wire it with GraphQL so local as well as server state is managed by GraphQL.
@@ -352,6 +356,8 @@ const client = new ApolloClient({
 });
 
 ```
+
+<br/><br/>
 
 <h2>Fragments</h2>
 
