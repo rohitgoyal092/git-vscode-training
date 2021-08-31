@@ -53,10 +53,11 @@ enum Episode {
 }
 ```
 
-- This means that wherever we use the type Episode in our schema, we expect it to be exactly one of NEWHOPE, EMPIRE, or JEDI.
+This means that wherever we use the type Episode in our schema, we expect it to be exactly one of NEWHOPE, EMPIRE, or JEDI.
+
 - Array types
 - Non Null modifier (!) - Triggers error if server attempts to return null value for a field.
-- PS : Empty array is not null
+  PS : Empty array is not null
 - Interface - Like an abstract class (implemented/extended)
 - Union types - Generally used with inline fragments. Common inherited interfaces can also be extracted once while writing query. We can't do union of interfaces or unions themselves. We do union on object types only.
 - Input type - To pass an object as an argument (generally for mutation).
@@ -210,8 +211,8 @@ becomes
      - The modifier function receives the previous value in the cache as the argument. If the field data is an object, and we return something different other than the reference to this object, we end up changing the reference to this field rather than modifying the data inside this field.
 
   - We can also delete, invalidate fields, read fields by passing different options to the respective field function like "DELETE", "INVALIDATE", "readField" etc and in some cases returning their values.
-
-<h2>Query vs Mutation vs Subscription :</h2>
+  <br/><br/>
+  <h2>Query vs Mutation vs Subscription :</h2>
 
 - https://medium.com/software-insight/graphql-queries-mutations-and-subscriptions-286522b263d9
 - https://www.apollographql.com/blog/graphql/basics/mutation-vs-query-when-to-use-graphql-mutation/
@@ -243,31 +244,6 @@ query getAllCharacters($page : Int, $filter : FilterCharacter){
 
 ```
 {"page": 34, "filter": : {"name" : "Rick Sanchez"}}
-```
-
-<br/><br/>
-
-<h2>Aliasing</h2>
-Used to change client side interpretation of a field on server side.
-
-```
-results {
-      fullName : name,
-    }
-```
-
-<br/><br/>
-
-<h2>Mutations</h2>
-
-- Same as query :
-
-```
-mutation CreatingACharacter(){
-  createCharacter(){
-
-  }
-}
 ```
 
 <br/><br/>
@@ -417,6 +393,82 @@ const MORE_COMMENTS_QUERY = gql`
   }
 `;
 ```
+
+<br/><br/>
+
+<h2>Best Practices :</h2>
+
+- We should name all operations : for semantic purposes, debugging ease(logging purposes), Apollo inbuilt utilities
+- Use variables in arguments instead of hard-coding values into fields. This also provides many benefits like server side caching boost to the queries (automatic persisted queries, that basically parses queries only once and thereafter only works on previously parsed queries with different arguments). Also with variables as arguments, the cache doesn't store some private and sensitive values like keys with the rest of the query string.
+- We should query whatever we need, nothing extra. That's one of the main benefits of GraphQL.
+- We should use collocated fragments for management and semantic purposes.
+- Fragments should have semantically related values. We should also avoid over-using fragments as it can impact readability of code.
+- We should query global data and user-specific data separately. This helps keep the cached data for both the types separate.
+
+```
+#Some fields return the exact same data regardless of which user queries them:
+# Returns all elements of the periodic table
+query GetAllElements {
+  elements {
+    atomicNumber
+    name
+    symbol
+  }
+}
+#Other fields return different data depending on which user queries them:
+# Returns the current user's documents
+query GetMyDocuments {
+  myDocuments {
+    id
+    title
+    url
+    updatedAt
+  }
+}
+
+```
+
+This also improves server side caching.
+
+- We should, if possible, provide app version and name while initializing client. This helps segregate data for analysis while using Apollo metrics reporting for different versions of the App and names.
+
+```
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache(),
+  name: 'MarketingSite',
+  version: '1.2'
+});
+```
+
+<br/><br/>
+
+<h1>GraphQL Frontend Masters Course</h1>
+
+<h2>Aliasing</h2>
+Used to change client side interpretation of a field on server side.
+
+```
+results {
+      fullName : name,
+    }
+```
+
+<br/><br/>
+
+<h2>Mutations</h2>
+
+- Same as query :
+
+```
+mutation CreatingACharacter(){
+  createCharacter(){
+
+  }
+}
+```
+
+<br/><br/>
 
 <h2>Apollo API</h2>
 
@@ -699,47 +751,4 @@ const NEW_PET = gql`
 `;
 ```
 
-<h2>Best Practices :</h2>
-
-- We should name all operations : for semantic purposes, debugging ease(logging purposes), Apollo inbuilt utilities
-- Use variables in arguments instead of hard-coding values into fields. This also provides many benefits like server side caching boost to the queries (automatic persisted queries, that basically parses queries only once and thereafter only works on previously parsed queries with different arguments). Also with variables as arguments, the cache doesn't store some private and sensitive values like keys with the rest of the query string.
-- We should query whatever we need, nothing extra. That's one of the main benefits of GraphQL.
-- We should use collocated fragments for management and semantic purposes.
-- Fragments should have semantically related values. We should also avoid over-using fragments as it can impact readability of code.
-- We should query global data and user-specific data separately. This helps keep the cached data for both the types separate.
-
-```
-#Some fields return the exact same data regardless of which user queries them:
-# Returns all elements of the periodic table
-query GetAllElements {
-  elements {
-    atomicNumber
-    name
-    symbol
-  }
-}
-#Other fields return different data depending on which user queries them:
-# Returns the current user's documents
-query GetMyDocuments {
-  myDocuments {
-    id
-    title
-    url
-    updatedAt
-  }
-}
-
-```
-
-This also improves server side caching.
-
-- We should, if possible, provide app version and name while initializing client. This helps segregate data for analysis while using Apollo metrics reporting for different versions of the App and names.
-
-```
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache(),
-  name: 'MarketingSite',
-  version: '1.2'
-});
-```
+<br/><br/>
