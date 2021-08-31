@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server')
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   enum PetType {
@@ -6,39 +6,47 @@ const typeDefs = gql`
     DOG
   }
 
-type User {
-  id: ID!
-  username: String!
-  pets: [Pet]!
-}
+  type User {
+    id: ID!
+    username: String!
+    pets: [Pet]!
+  }
 
-type Pet {
-  id: ID!
-  type: PetType!
-  name: String!
-  owner: User!
-  img: String!
-  createdAt: Int!
-}
+  type Pet {
+    id: ID!
+    type: PetType!
+    name: String!
+    owner: User!
+    img: String!
+    createdAt: Int!
+  }
 
-input NewPetInput {
-  name: String!
-  type: PetType!
-}
+  input PetEditInputType {
+    id: ID!
+    type: PetType!
+    name: String!
+  }
 
-input PetsInput {
-  type: PetType
-}
+  input NewPetInput {
+    name: String!
+    type: PetType!
+  }
 
-type Query {
-  user: User!
-  pets(input: PetsInput): [Pet]!
-  pet(id: ID!): Pet!
-}
+  input PetsInput {
+    type: PetType
+  }
 
-type Mutation {
-  addPet(input: NewPetInput!): Pet!
-}
+  type Query {
+    user: User!
+    pets(input: PetsInput): [Pet]!
+    pet(id: ID!): Pet!
+  }
+
+  type Mutation {
+    addPet(input: NewPetInput!): Pet!
+    deletePet(id: ID!): Pet!
+    editPet(pet: PetEditInputType!): Pet!
+  }
 `;
 
-module.exports = typeDefs
+module.exports = typeDefs;
