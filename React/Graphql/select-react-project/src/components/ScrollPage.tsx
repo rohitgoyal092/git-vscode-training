@@ -1,6 +1,6 @@
-import { FETCHED_PAGE_SIZE, INITIAL_PAGE_SIZE } from "./constants/ScrollPage";
-import { useScrollDataManager } from "./hooks/useScrollDataManager";
-import { City } from "./types/City";
+import { FETCHED_PAGE_SIZE, INITIAL_PAGE_SIZE } from "../constants/ScrollPage";
+import { useScrollDataManager } from "../hooks/useScrollDataManager";
+import { City } from "../types/City";
 
 export const ScrollPage = () => {
   const {

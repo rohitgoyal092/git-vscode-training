@@ -1,5 +1,5 @@
 import "./App.css";
-import { ScrollPage } from "./ScrollPage";
+import { ScrollPage } from "./components/ScrollPage";
 
 function App() {
   return <ScrollPage></ScrollPage>;
