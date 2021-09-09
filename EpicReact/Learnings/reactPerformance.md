@@ -169,14 +169,6 @@
 - We can measure detailed user oriented data using Performance API.
 - Performance API hosts 2 kinds of tools : Entry timings tool(for events like fetchStart, fetchEnd etc) and Performance observer tool.
 - Custom implementation to get core web vitals along with DomLoad and Load times(Although there are API's for this):
-- A general notion in performance is that its a gradual process, not just to be saved for the last. eg. generate and save lighthouse reports regularly. But meanwhile we also need to prioritize feature > security > quality > performance.
-- To identify performance bottlenecks, we should have knowledge about :
-
-  - Who our users are (bandwidth, devices, browsers? etc)
-  - How long will they wait?(anxious, willing to wait etc., threshold of waiting)
-  - How much fast website would impress them?
-
-- To get estimate of
 
 ```
 (function (ready) {
@@ -253,7 +245,12 @@
 
 ```
 
-- SW
+- A general notion in performance is that its a gradual process, not just to be saved for the last. eg. generate and save lighthouse reports regularly. But meanwhile we also need to prioritize feature > security > quality > performance.
+- To identify performance bottlenecks, we should have knowledge about :
+
+  - Who our users are (bandwidth, devices, browsers? etc)
+  - How long will they wait?(anxious, willing to wait etc., threshold of waiting)
+  - How much fast website would impress them?
 
 <br/><br/>
 
